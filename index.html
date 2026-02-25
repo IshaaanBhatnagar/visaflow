@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visa x Clear UAE — e-Invoicing + Digital Payments</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            surface: '#F9FAFB',
+            card: '#FFFFFF',
+            primary: '#2563EB',
+            'primary-light': '#DBEAFE',
+            visa: '#1A1F71',
+            'visa-gold': '#F7B600',
+            positive: '#16A34A',
+            'positive-light': '#DCFCE7',
+            warning: '#D97706',
+            'warning-light': '#FEF3C7',
+            danger: '#DC2626',
+            neutral: '#6B7280',
+            'neutral-light': '#F3F4F6',
+            seller: '#2563EB',
+            'seller-light': '#DBEAFE',
+            clear: '#16A34A',
+            'clear-light': '#DCFCE7',
+            payfac: '#F7B600',
+            'payfac-light': '#FEF9C3',
+            buyer: '#7C3AED',
+            'buyer-light': '#EDE9FE',
+            fta: '#6B7280',
+            'fta-light': '#F3F4F6',
+            mashreq: '#0D9488',
+            'mashreq-light': '#CCFBF1',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: #F9FAFB; }
+    h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Syne', sans-serif; }
+
+    .nav-glass {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .tab-btn {
+      position: relative; white-space: nowrap;
+      padding: 0.625rem 1.125rem; font-size: 0.875rem; font-weight: 500;
+      color: #6B7280; border-radius: 0.5rem;
+      transition: color 0.2s, background 0.2s;
+    }
+    .tab-btn:hover { color: #2563EB; background: rgba(37, 99, 235, 0.06); }
+    .tab-btn.active { color: #2563EB; background: rgba(37, 99, 235, 0.08); font-weight: 600; }
+    .tab-btn.active::after {
+      content: ''; position: absolute; bottom: -0.625rem; left: 50%;
+      transform: translateX(-50%); width: 60%; height: 2.5px;
+      background: #2563EB; border-radius: 2px;
+    }
+    .tab-section { display: none; opacity: 0; transform: translateY(12px); transition: opacity 0.35s ease, transform 0.35s ease; }
+    .tab-section.visible { display: block; }
+    .tab-section.active-section { opacity: 1; transform: translateY(0); }
+    .card-hover { transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; border: 2px solid transparent; }
+    .card-hover:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.10); border-color: #2563EB; }
+    .party-badge { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; border-radius: 9999px; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.02em; }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-tabs { -ms-overflow-style: none; scrollbar-width: none; }
+    .convergence-line { stroke-dasharray: 8 4; animation: dashMove 1.5s linear infinite; }
+    @keyframes dashMove { to { stroke-dashoffset: -24; } }
+    .integration-node { transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+    .integration-node:hover { transform: scale(1.04); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .integration-detail { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.3s ease; padding: 0; }
+    .integration-detail.open { max-height: 300px; opacity: 1; padding: 1rem; }
+    .data-arrow { display: inline-block; animation: arrowPulse 1.5s ease-in-out infinite; }
+    @keyframes arrowPulse { 0%, 100% { opacity: 0.5; transform: translateX(0); } 50% { opacity: 1; transform: translateX(3px); } }
+
+    /* ============================================================ */
+    /* HORIZONTAL FLOW DIAGRAM */
+    /* ============================================================ */
+    .flow-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .flow-scroll::-webkit-scrollbar { height: 6px; }
+    .flow-scroll::-webkit-scrollbar-track { background: #F3F4F6; border-radius: 3px; }
+    .flow-scroll::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+    .flow-scroll::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    .flow-h { display: inline-flex; align-items: center; min-width: max-content; padding: 1.5rem 0.5rem; gap: 0; }
+
+    .flow-node {
+      background: #fff; border-radius: 0.75rem; border: 2px solid #E5E7EB;
+      padding: 0.625rem 0.75rem; cursor: pointer; position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.3s ease;
+    }
+    .flow-node:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: #93C5FD; }
+    .flow-node.selected { border-color: #2563EB; box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15); transform: translateY(-2px); }
+    .flow-node[data-layer="payment"] { background: linear-gradient(135deg, #FFFBEB, #FEF3C7); border-color: #FCD34D; }
+    .flow-node[data-layer="payment"]:hover { border-color: #F7B600; box-shadow: 0 4px 16px rgba(247, 182, 0, 0.15); }
+    .flow-node[data-layer="payment"].selected { border-color: #F7B600; box-shadow: 0 4px 20px rgba(247, 182, 0, 0.2); }
+
+    .node-w { width: 148px; flex-shrink: 0; }
+    .node-w-lg { width: 172px; flex-shrink: 0; }
+    .node-w-sm { width: 132px; flex-shrink: 0; }
+
+    /* Diamond */
+    .diamond-shape {
+      width: 96px; height: 96px; transform: rotate(45deg);
+      border: 2.5px solid #F7B600; background: linear-gradient(135deg, #FEF9C3, #FFFBEB);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: box-shadow 0.2s; box-shadow: 0 3px 12px rgba(247, 182, 0, 0.12);
+      flex-shrink: 0;
+    }
+    .diamond-shape:hover { box-shadow: 0 6px 20px rgba(247, 182, 0, 0.2); }
+    .diamond-shape.selected { border-color: #D97706; box-shadow: 0 6px 24px rgba(247, 182, 0, 0.25); }
+    .diamond-content { transform: rotate(-45deg); text-align: center; width: 76px; }
+
+    /* Validation sub-steps */
+    .validation-step {
+      display: inline-flex; align-items: center; padding: 0.1rem 0.35rem;
+      border-radius: 0.25rem; font-size: 0.55rem; font-weight: 600;
+      background: #F0FDF4; color: #16A34A; border: 1px solid #BBF7D0;
+    }
+    .validation-arrow { color: #9CA3AF; font-size: 0.55rem; }
+
+    /* Payment zone */
+    .payment-zone {
+      background: rgba(247, 182, 0, 0.04); border: 1.5px dashed rgba(247, 182, 0, 0.25);
+      border-radius: 1rem; position: relative; flex-shrink: 0;
+    }
+    .payment-zone-label {
+      position: absolute; top: 0.375rem; left: 0.75rem;
+      font-size: 0.5rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #B45309; font-family: 'Syne', sans-serif;
+    }
+
+    .gold-dash { stroke-dasharray: 6 3; animation: goldDashFlow 1s linear infinite; }
+    @keyframes goldDashFlow { to { stroke-dashoffset: -18; } }
+
+    @keyframes goldPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(247, 182, 0, 0.3); }
+      50% { box-shadow: 0 0 0 5px rgba(247, 182, 0, 0); }
+    }
+    .flow-node[data-layer="payment"].selected { animation: goldPulse 2s ease-in-out infinite; }
+
+    .detail-panel {
+      max-height: 0; opacity: 0; overflow: hidden;
+      transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s ease;
+      margin-top: 0;
+    }
+    .detail-panel.open { max-height: 500px; opacity: 1; margin-top: 1.5rem; }
+
+    .layer-toggle {
+      padding: 0.3rem 0.6rem; border-radius: 0.375rem; font-size: 0.7rem; font-weight: 500;
+      color: #6B7280; background: transparent; border: 1.5px solid transparent;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .layer-toggle:hover { background: #F3F4F6; }
+    .layer-toggle.active-toggle { background: #EFF6FF; color: #2563EB; border-color: #BFDBFE; font-weight: 600; }
+
+    .flow-diagram.filter-compliance .flow-node[data-layer="payment"],
+    .flow-diagram.filter-compliance .diamond-shape,
+    .flow-diagram.filter-compliance .payment-zone { opacity: 0.15; pointer-events: none; }
+    .flow-diagram.filter-compliance .payment-connector { opacity: 0.1; }
+    .flow-diagram.filter-payment .flow-node[data-layer="compliance"] { opacity: 0.25; }
+    .flow-diagram.filter-payment .compliance-connector { opacity: 0.15; }
+
+    .scroll-hint { display: none; }
+    @media (max-width: 1024px) { .scroll-hint { display: flex; } }
+
+    .security-strip {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1rem; background: #F8FAFC;
+      border-top: 1px solid #E2E8F0; border-radius: 0 0 0.75rem 0.75rem;
+    }
+    .security-strip .strip-label {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #94A3B8; font-family: 'Syne', sans-serif;
+    }
+    .security-badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.25rem 0.55rem; border-radius: 0.375rem;
+      font-size: 0.68rem; font-weight: 600; background: #fff;
+      border: 1px solid #E2E8F0; color: #475569; white-space: nowrap;
+    }
+    .security-badge svg { width: 12px; height: 12px; flex-shrink: 0; }
+    .security-badge.badge-green { border-color: #BBF7D0; color: #166534; background: #F0FDF4; }
+    .security-badge.badge-blue { border-color: #BFDBFE; color: #1E40AF; background: #EFF6FF; }
+    .security-badge.badge-purple { border-color: #DDD6FE; color: #5B21B6; background: #F5F3FF; }
+    .security-badge.badge-gray { border-color: #D1D5DB; color: #374151; background: #F9FAFB; }
+    .security-badge.badge-visa { border-color: #FDE68A; color: #92400E; background: #FFFBEB; }
+    .security-badge.badge-teal { border-color: #99F6E4; color: #115E59; background: #F0FDFA; }
+    .security-divider { width: 1px; height: 16px; background: #D1D5DB; flex-shrink: 0; }
+
+    /* PayFac API Sub-Diagram */
+    .payfac-subflow {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 1rem; overflow-x: auto;
+    }
+    .payfac-subnode {
+      width: 130px; flex-shrink: 0; padding: 0.625rem 0.75rem;
+      background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
+      border: 1.5px solid #FCD34D; border-radius: 0.625rem;
+      font-size: 0.7rem; text-align: center;
+    }
+    .payfac-subnode h5 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.65rem; color: #92400E; margin-bottom: 0.25rem; }
+    .payfac-subnode p { font-size: 0.6rem; color: #78716C; line-height: 1.3; }
+    .payfac-arrow { width: 28px; flex-shrink: 0; text-align: center; color: #F7B600; font-size: 0.75rem; font-weight: 700; }
+
+    /* Invoice Mockup */
+    .invoice-mockup { max-width: 520px; margin: 0 auto; background: #fff; border: 1px solid #E5E7EB; border-radius: 0.5rem; box-shadow: 0 4px 24px rgba(0,0,0,0.06); padding: 2rem; }
+    .invoice-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    .invoice-table th { text-align: left; padding: 0.5rem; border-bottom: 2px solid #E5E7EB; font-size: 0.7rem; color: #6B7280; text-transform: uppercase; }
+    .invoice-table td { padding: 0.5rem; border-bottom: 1px solid #F3F4F6; }
+
+    /* Phone Mockups */
+    .phone-mockup { width: 280px; min-height: 480px; flex-shrink: 0; background: #fff; border: 2px solid #E5E7EB; border-radius: 2rem; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .phone-notch { background: #1F2937; height: 28px; border-radius: 0 0 1rem 1rem; margin: 0 3rem; display: flex; align-items: center; justify-content: center; }
+    .phone-notch::after { content: ''; width: 40px; height: 4px; background: #374151; border-radius: 2px; }
+    .phone-body { padding: 1.25rem; }
+    .qr-placeholder { width: 100px; height: 100px; border: 2px solid #E5E7EB; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; background: #F9FAFB; font-size: 0.6rem; color: #9CA3AF; text-align: center; }
+    .pay-button-visa { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: #1A1F71; color: #fff; border-radius: 0.5rem; font-weight: 700; font-size: 0.85rem; font-family: 'Syne', sans-serif; border: none; cursor: pointer; transition: background 0.2s; }
+    .pay-button-visa:hover { background: #131656; }
+
+    /* Security Grid Cards */
+    .security-card { background: #fff; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1rem; text-align: center; transition: transform 0.2s, box-shadow 0.2s; }
+    .security-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .security-card .icon-circle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; }
+  </style>
+</head>
+<body class="font-body text-gray-800 min-h-screen">
+
+  <nav class="nav-glass fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="flex items-center gap-1.5">
+            <div class="w-7 h-7 bg-visa rounded flex items-center justify-center"><span class="text-white text-xs font-bold font-heading">V</span></div>
+            <span class="text-visa font-heading font-bold text-sm tracking-tight">Visa</span>
+          </div>
+          <span class="text-gray-300 text-lg font-light">&times;</span>
+          <div class="flex items-center gap-1.5">
+            <div class="w-7 h-7 bg-primary rounded flex items-center justify-center"><span class="text-white text-xs font-bold font-heading">C</span></div>
+            <span class="text-primary font-heading font-bold text-sm tracking-tight">Clear</span>
+          </div>
+          <span class="hidden sm:inline text-gray-400 text-xs font-medium ml-1">UAE</span>
+        </div>
+        <div class="nav-tabs flex items-center gap-1 overflow-x-auto ml-4">
+          <button class="tab-btn active" data-tab="opportunity">The Opportunity</button>
+          <button class="tab-btn" data-tab="sell-flow">Seller Journey</button>
+          <button class="tab-btn" data-tab="buy-flow">Buyer Experience</button>
+          <button class="tab-btn" data-tab="what-users-see">What Users See</button>
+          <button class="tab-btn" data-tab="returns">Your Returns</button>
+          <button class="tab-btn" data-tab="architecture">Architecture</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-20 pb-16 max-w-7xl mx-auto px-4 sm:px-6">
+
+    <!-- TAB 1: THE OPPORTUNITY -->
+    <section id="opportunity" class="tab-section visible active-section">
+      <div class="mb-8">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-3">UAE's e-Invoicing Mandate Creates a B2B Payments Opportunity</h1>
+        <p class="text-gray-600 max-w-2xl text-base leading-relaxed">Every business in the UAE will issue structured e-Invoices by 2026. That mandate digitizes invoices -- but not payments. For Visa and Mashreq, this gap is greenfield.</p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-4 mb-10">
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover text-center"><p class="font-heading text-4xl font-bold text-visa mb-2">2026</p><p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">UAE Mandate</p><p class="text-sm text-gray-600">e-Invoicing goes live for all B2B transactions, enforced by FTA</p></div>
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover text-center"><p class="font-heading text-4xl font-bold text-visa mb-2">350K+</p><p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Businesses</p><p class="text-sm text-gray-600">Every UAE enterprise must adopt -- each invoice can carry a Visa payment link</p></div>
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover text-center"><p class="font-heading text-4xl font-bold text-visa mb-2">100%</p><p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Invoice Coverage</p><p class="text-sm text-gray-600">Mandatory compliance means every B2B invoice enters the digital pipeline</p></div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm p-8 mb-10">
+        <h3 class="font-heading font-bold text-xl text-gray-900 mb-6 text-center">The Mandate Solves Invoicing. Not Payments.</h3>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h4 class="font-heading font-semibold text-positive mb-3 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="#16A34A" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>What e-Invoicing Solves</h4>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2"><svg class="w-4 h-4 text-positive mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>Invoice creation</strong> -- structured PINT AE / UBL 2.1 format, auto-validated</span></li>
+              <li class="flex items-start gap-2"><svg class="w-4 h-4 text-positive mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>Invoice delivery</strong> -- Peppol network, guaranteed receipt, audit trail</span></li>
+              <li class="flex items-start gap-2"><svg class="w-4 h-4 text-positive mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>Invoice verification</strong> -- auto-ingested, schema-validated, de-duplicated</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-heading font-semibold text-danger mb-3 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="#DC2626" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>What It Doesn't Solve</h4>
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+              <p class="text-sm text-gray-800 font-medium mb-2">Payment collection remains disconnected.</p>
+              <p class="text-sm text-gray-600">No mechanism to embed payment links, trigger payments, or reconcile invoices with payment status. Manual bank transfers, cheques, 30-90 day DSO.</p>
+              <p class="text-sm text-warning font-semibold mt-3">This is the gap Visa and Mashreq fill.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-50 border border-blue-200 rounded-xl p-6 mb-10 shadow-sm">
+        <p class="text-lg text-gray-900 leading-relaxed text-center font-medium">"Every e-Invoice carries a <strong class="text-visa">Visa payment link</strong>. Every payment routes through <strong class="text-visa">Visa rails</strong>. Every validated invoice feeds <strong class="text-mashreq">Mashreq's financing pipeline</strong>."</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover border-l-4 border-visa">
+          <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 bg-visa rounded-lg flex items-center justify-center"><span class="text-white text-sm font-bold font-heading">V</span></div><h3 class="font-heading font-bold text-lg text-visa">For Visa</h3></div>
+          <p class="text-sm text-gray-700 leading-relaxed"><strong>Capture B2B payment volume at the point of invoice creation.</strong> Every e-Invoice becomes a Visa transaction. 350K+ businesses, mandatory adoption, embedded payment links with zero extra effort for the seller.</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover border-l-4 border-mashreq">
+          <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 bg-mashreq rounded-lg flex items-center justify-center"><span class="text-white text-sm font-bold font-heading">M</span></div><h3 class="font-heading font-bold text-lg text-mashreq">For Mashreq</h3></div>
+          <p class="text-sm text-gray-700 leading-relaxed"><strong>Finance against pre-validated, FTA-compliant invoice data.</strong> Every invoice passing the platform is schema-validated, de-duplicated, and government-reported -- a pre-qualified lending asset at scale.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- TAB 3: SELL-SIDE WORKFLOW (HORIZONTAL FLOW) -->
+    <!-- ================================================================ -->
+    <section id="sell-flow" class="tab-section">
+      <div class="mb-5">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Seller Journey -- How Every Invoice Becomes a Visa Transaction</h1>
+        <p class="text-gray-600 max-w-2xl text-base leading-relaxed">Follow an invoice from creation to delivery. At every gold-highlighted step, Visa captures payment volume and Mashreq gains financing data. Click any node for details.</p>
+      </div>
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <div class="flex flex-wrap gap-1.5">
+          <span class="party-badge bg-seller-light text-seller">Seller</span>
+          <span class="party-badge bg-clear-light text-clear">Clear</span>
+          <span class="party-badge bg-payfac-light text-visa">Visa PayFac</span>
+          <span class="party-badge bg-buyer-light text-buyer">Buyer ASP</span>
+          <span class="party-badge bg-fta-light text-fta">FTA</span>
+          <span class="party-badge bg-mashreq-light text-mashreq">Mashreq</span>
+        </div>
+        <div class="flex items-center gap-1 bg-white rounded-lg p-1 shadow-sm border border-gray-100">
+          <button class="layer-toggle active-toggle" data-flow="sell" data-layer="all">Full Flow</button>
+          <button class="layer-toggle" data-flow="sell" data-layer="compliance"><span class="inline-block w-2 h-2 rounded-full bg-primary mr-1"></span>Compliance</button>
+          <button class="layer-toggle" data-flow="sell" data-layer="payment"><span class="inline-block w-2 h-2 rounded-full bg-payfac mr-1"></span>Payment</button>
+        </div>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="scroll-hint items-center gap-2 text-xs text-gray-400 mb-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <span>Scroll to see full flow</span>
+      </div>
+
+      <div class="flow-diagram bg-white rounded-xl shadow-sm" id="sellFlowDiagram">
+        <div class="flow-scroll p-4 sm:p-6">
+          <div class="flow-h">
+
+            <!-- 1. Seller ERP -->
+            <div class="flow-node node-w" data-layer="compliance" data-node-id="sell-erp" onclick="showDetail('sell','sell-erp')">
+              <div class="flex flex-wrap gap-1 mb-1.5"><span class="party-badge bg-seller-light text-seller">Seller</span></div>
+              <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Invoice Created in ERP</h4>
+              <p class="text-[10px] text-gray-500 mt-0.5">Accounting software</p>
+            </div>
+
+            <!-- Arrow -->
+            <svg width="36" height="20" viewBox="0 0 36 20" class="shrink-0 mx-1.5 compliance-connector"><line x1="0" y1="10" x2="28" y2="10" stroke="#CBD5E1" stroke-width="2"/><polygon points="28,5 36,10 28,15" fill="#CBD5E1"/></svg>
+
+            <!-- 2. Transform -->
+            <div class="flow-node node-w" data-layer="compliance" data-node-id="sell-transform" onclick="showDetail('sell','sell-transform')">
+              <div class="flex flex-wrap gap-1 mb-1.5"><span class="party-badge bg-seller-light text-seller">Seller</span><span class="party-badge bg-clear-light text-clear">Clear</span></div>
+              <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Transform to PINT AE</h4>
+              <p class="text-[10px] text-gray-500 mt-0.5">UBL 2.1 XML generation</p>
+            </div>
+
+            <!-- Arrow -->
+            <svg width="36" height="20" viewBox="0 0 36 20" class="shrink-0 mx-1.5 compliance-connector"><line x1="0" y1="10" x2="28" y2="10" stroke="#CBD5E1" stroke-width="2"/><polygon points="28,5 36,10 28,15" fill="#CBD5E1"/></svg>
+
+            <!-- 3. Validation Pipeline -->
+            <div class="flow-node node-w-lg" data-layer="compliance" data-node-id="sell-validate" onclick="showDetail('sell','sell-validate')">
+              <div class="flex flex-wrap gap-1 mb-1.5"><span class="party-badge bg-clear-light text-clear">Clear</span></div>
+              <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Validation Pipeline</h4>
+              <div class="flex flex-wrap items-center gap-1 mt-1.5">
+                <span class="validation-step">XSD</span><span class="validation-arrow">&rarr;</span>
+                <span class="validation-step">XSLT</span><span class="validation-arrow">&rarr;</span>
+                <span class="validation-step">BR</span><span class="validation-arrow">&rarr;</span>
+                <span class="validation-step">Dup</span><span class="validation-arrow">&rarr;</span>
+                <span class="validation-step">FTA</span>
+              </div>
+            </div>
+
+            <!-- Arrow into payment zone -->
+            <svg width="36" height="20" viewBox="0 0 36 20" class="shrink-0 mx-1.5 compliance-connector"><line x1="0" y1="10" x2="28" y2="10" stroke="#CBD5E1" stroke-width="2"/><polygon points="28,5 36,10 28,15" fill="#CBD5E1"/></svg>
+
+            <!-- PAYMENT ZONE: Decision + Branches + Merge + Invoice Ready -->
+            <div class="payment-zone flex items-center gap-0 px-3 py-8 pt-9">
+              <span class="payment-zone-label">Payment Layer -- Visa + Clear</span>
+
+              <!-- Decision column: YES (top), Diamond (center), NO (bottom) -->
+              <div class="flex flex-col items-center justify-between shrink-0" style="height:320px;">
+                <div class="flow-node node-w-sm" data-layer="compliance" data-node-id="sell-proceed" onclick="showDetail('sell','sell-proceed')" style="background: linear-gradient(135deg, #F0FDF4, #DCFCE7); border-color: #86EFAC;">
+                  <div class="flex gap-1 mb-1"><span class="party-badge bg-clear-light text-clear">Clear</span></div>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Proceed</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">Link already present</p>
+                </div>
+                <div data-node-id="sell-decision" onclick="showDetail('sell','sell-decision')" style="margin: 8px 0;">
+                  <div class="diamond-shape"><div class="diamond-content"><p class="font-heading font-bold" style="font-size:0.6rem; color:#92400E; line-height:1.2;">Has Pay Link?</p></div></div>
+                </div>
+                <div class="flow-node node-w-sm" data-layer="payment" data-node-id="sell-visa-req" onclick="showDetail('sell','sell-visa-req')">
+                  <div class="flex gap-1 mb-1"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-payfac-light text-visa">Visa</span></div>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Request Pay Link</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">Visa PayFac API</p>
+                </div>
+              </div>
+
+              <!-- Branch labels + merge SVG -->
+              <svg viewBox="0 0 70 320" class="shrink-0" style="width:56px; height:320px;" >
+                <!-- YES label + path from top node -->
+                <text x="8" y="26" fill="#16A34A" font-size="9" font-weight="700" font-family="Syne, sans-serif">YES</text>
+                <path d="M 0 36 C 35 36, 35 160, 66 160" stroke="#16A34A" stroke-width="2" fill="none"/>
+                <!-- NO label + path from bottom node -->
+                <text x="10" y="298" fill="#B45309" font-size="9" font-weight="700" font-family="Syne, sans-serif">NO</text>
+                <path d="M 0 286 C 35 286, 35 160, 66 160" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+                <!-- Arrow tip -->
+                <polygon points="63,156 70,160 63,164" fill="#F7B600"/>
+              </svg>
+
+              <!-- Invoice Ready (merge point) -->
+              <div class="flow-node node-w shrink-0" data-layer="payment" data-node-id="sell-ready" onclick="showDetail('sell','sell-ready')">
+                <div class="flex flex-wrap gap-1 mb-1.5"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-payfac-light text-visa">Visa</span></div>
+                <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Invoice + Payment Link</h4>
+                <p class="text-[10px] text-gray-500 mt-0.5">100% coverage</p>
+              </div>
+            </div>
+            <!-- END PAYMENT ZONE -->
+
+            <!-- Fan-out SVG -->
+            <svg viewBox="0 0 56 320" class="shrink-0 mx-1" style="width:44px; height:320px;">
+              <text x="0" y="14" fill="#6B7280" font-size="10" font-weight="700" font-family="Syne, sans-serif">DISPATCH</text>
+              <!-- To Peppol (top) -->
+              <path d="M 0 160 C 28 160, 28 36, 52 36" stroke="#CBD5E1" stroke-width="2" fill="none"/>
+              <polygon points="49,32 56,36 49,40" fill="#CBD5E1"/>
+              <!-- To FTA (center) -->
+              <line x1="0" y1="160" x2="52" y2="160" stroke="#CBD5E1" stroke-width="2"/>
+              <polygon points="49,156 56,160 49,164" fill="#CBD5E1"/>
+              <!-- To Mashreq (bottom) -->
+              <path d="M 0 160 C 28 160, 28 284, 52 284" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+              <polygon points="49,280 56,284 49,288" fill="#F7B600"/>
+            </svg>
+
+            <!-- 3 parallel outputs -->
+            <div class="flex flex-col justify-between shrink-0" style="height:320px;">
+              <div class="flow-node node-w" data-layer="compliance" data-node-id="sell-peppol" onclick="showDetail('sell','sell-peppol')">
+                <div class="flex gap-1 mb-1"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-buyer-light text-buyer">Buyer</span></div>
+                <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Peppol Delivery</h4>
+                <p class="text-[10px] text-gray-500 mt-0.5">AS4 to Buyer ASP</p>
+              </div>
+              <div class="flow-node node-w" data-layer="compliance" data-node-id="sell-fta" onclick="showDetail('sell','sell-fta')">
+                <div class="flex gap-1 mb-1"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-fta-light text-fta">FTA</span></div>
+                <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">FTA Reporting</h4>
+                <p class="text-[10px] text-gray-500 mt-0.5">CTC compliance</p>
+              </div>
+              <div class="flow-node node-w" data-layer="payment" data-node-id="sell-mashreq" onclick="showDetail('sell','sell-mashreq')">
+                <div class="flex gap-1 mb-1"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-mashreq-light text-mashreq">Mashreq</span></div>
+                <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Mashreq Financing</h4>
+                <p class="text-[10px] text-gray-500 mt-0.5">Invoice factoring</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- Security & Infrastructure -->
+        <div class="security-strip">
+          <span class="strip-label mr-1">Security</span>
+          <span class="security-badge badge-green"><svg fill="none" stroke="#16A34A" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>OpenPeppol Certified</span>
+          <span class="security-badge badge-blue"><svg fill="none" stroke="#2563EB" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>mTLS API</span>
+          <span class="security-badge badge-purple"><svg fill="none" stroke="#7C3AED" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Peppol PKI</span>
+          <span class="security-badge badge-green"><svg fill="none" stroke="#16A34A" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>AES-256</span>
+          <span class="security-badge badge-gray"><svg fill="none" stroke="#6B7280" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>FTA Signing</span>
+          <span class="security-badge badge-visa"><svg fill="none" stroke="#B45309" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>3DS Auth</span>
+          <span class="security-divider"></span>
+          <span class="strip-label mr-1">Infrastructure</span>
+          <span class="security-badge badge-teal"><svg fill="none" stroke="#0D9488" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>GCC-Hosted (UAE)</span>
+          <span class="security-badge badge-teal"><svg fill="none" stroke="#0D9488" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Data Residency</span>
+          <span class="security-badge badge-teal"><svg fill="none" stroke="#0D9488" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>ISO 27001</span>
+        </div>
+      </div>
+
+      <!-- PayFac API Sub-Diagram -->
+      <div id="payfacSubDiagram" class="detail-panel bg-white rounded-xl shadow-lg border-2 overflow-hidden" style="border-color: #F7B600;">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <div class="flex flex-wrap gap-1.5 mb-2"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-payfac-light text-visa">Visa PayFac</span></div>
+              <h3 class="font-heading font-bold text-lg text-gray-900">Visa PayFac API -- Payment Link Generation</h3>
+              <p class="text-sm text-gray-500 mt-0.5">Real-time, secure, sub-second payment link generation</p>
+            </div>
+            <button onclick="closePayfacDiagram()" class="text-gray-400 hover:text-gray-600 p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+          </div>
+          <div class="payfac-subflow my-4">
+            <div class="payfac-subnode"><h5>mTLS Handshake</h5><p>Mutual TLS authentication. PCI DSS compliant channel.</p></div>
+            <div class="payfac-arrow">&rarr;</div>
+            <div class="payfac-subnode"><h5>API Request</h5><p>POST /payment-links<br/>{ amount, currency: AED, merchantId, invoiceRef }</p></div>
+            <div class="payfac-arrow">&rarr;</div>
+            <div class="payfac-subnode"><h5>Visa Processes</h5><p>Link generation, QR encoding, fraud screening</p></div>
+            <div class="payfac-arrow">&rarr;</div>
+            <div class="payfac-subnode"><h5>Response</h5><p>{ paymentLinkUrl, qrCodeData, expiresAt }<br/>Sub-second latency</p></div>
+            <div class="payfac-arrow">&rarr;</div>
+            <div class="payfac-subnode"><h5>Embed in XML</h5><p>Link inserted into UBL AdditionalDocumentReference</p></div>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-3 mt-3">
+            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Error Handling &amp; SLA</p>
+            <p class="text-xs text-gray-600">Retry with exponential backoff. Fallback to cached link if available. 99.9% uptime SLA. All calls over mTLS with PCI DSS Level 1 compliance.</p>
+          </div>
+          <button onclick="showStandardDetail()" class="text-xs text-primary font-semibold mt-3 hover:underline">&larr; Back to node detail</button>
+        </div>
+      </div>
+
+      <!-- Detail Panel -->
+      <div id="sellDetailPanel" class="detail-panel bg-white rounded-xl shadow-lg border-2 border-primary overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <div><div id="sellDetailParties" class="flex flex-wrap gap-1.5 mb-2"></div><h3 id="sellDetailTitle" class="font-heading font-bold text-lg text-gray-900"></h3><p id="sellDetailSubtitle" class="text-sm text-gray-500 mt-0.5"></p></div>
+            <button onclick="closeDetail('sell')" class="text-gray-400 hover:text-gray-600 p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+          </div>
+          <p id="sellDetailBody" class="text-sm text-gray-700 leading-relaxed mb-4"></p>
+          <div class="bg-gray-50 rounded-lg p-3"><p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Data Flow</p><p id="sellDetailDataFlow" class="text-xs text-gray-600"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- TAB 4: BUY-SIDE WORKFLOW (HORIZONTAL FLOW) -->
+    <!-- ================================================================ -->
+    <section id="buy-flow" class="tab-section">
+      <div class="mb-5">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Buyer Experience -- From Invoice Receipt to Visa Payment</h1>
+        <p class="text-gray-600 max-w-2xl text-base leading-relaxed">The buyer receives an invoice with embedded Visa payment options. Every payment routes through Visa rails. Click any node for details.</p>
+      </div>
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <div class="flex flex-wrap gap-1.5">
+          <span class="party-badge bg-seller-light text-seller">Seller</span>
+          <span class="party-badge bg-clear-light text-clear">Clear</span>
+          <span class="party-badge bg-payfac-light text-visa">Visa PayFac</span>
+          <span class="party-badge bg-buyer-light text-buyer">Buyer</span>
+        </div>
+        <div class="flex items-center gap-1 bg-white rounded-lg p-1 shadow-sm border border-gray-100">
+          <button class="layer-toggle active-toggle" data-flow="buy" data-layer="all">Full Flow</button>
+          <button class="layer-toggle" data-flow="buy" data-layer="compliance"><span class="inline-block w-2 h-2 rounded-full bg-primary mr-1"></span>Compliance</button>
+          <button class="layer-toggle" data-flow="buy" data-layer="payment"><span class="inline-block w-2 h-2 rounded-full bg-payfac mr-1"></span>Payment</button>
+        </div>
+      </div>
+
+      <div class="scroll-hint items-center gap-2 text-xs text-gray-400 mb-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <span>Scroll to see full flow</span>
+      </div>
+
+      <div class="flow-diagram bg-white rounded-xl shadow-sm" id="buyFlowDiagram">
+        <div class="flow-scroll p-4 sm:p-6">
+          <div class="flow-h">
+
+            <!-- 1. Receive -->
+            <div class="flow-node node-w" data-layer="compliance" data-node-id="buy-receive" onclick="showDetail('buy','buy-receive')">
+              <div class="flex gap-1 mb-1.5"><span class="party-badge bg-buyer-light text-buyer">Buyer ASP</span><span class="party-badge bg-clear-light text-clear">Clear</span></div>
+              <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">e-Invoice Received</h4>
+              <p class="text-[10px] text-gray-500 mt-0.5">Peppol inbound</p>
+            </div>
+
+            <svg width="36" height="20" viewBox="0 0 36 20" class="shrink-0 mx-1.5 compliance-connector"><line x1="0" y1="10" x2="28" y2="10" stroke="#CBD5E1" stroke-width="2"/><polygon points="28,5 36,10 28,15" fill="#CBD5E1"/></svg>
+
+            <!-- 2. Validate -->
+            <div class="flow-node node-w-lg" data-layer="compliance" data-node-id="buy-validate" onclick="showDetail('buy','buy-validate')">
+              <div class="flex gap-1 mb-1.5"><span class="party-badge bg-clear-light text-clear">Clear</span></div>
+              <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Multi-Layer Validation</h4>
+              <div class="flex flex-wrap items-center gap-1 mt-1.5">
+                <span class="validation-step">Cert</span><span class="validation-arrow">&rarr;</span>
+                <span class="validation-step">Transport</span><span class="validation-arrow">&rarr;</span>
+                <span class="validation-step">XSD</span><span class="validation-arrow">&rarr;</span>
+                <span class="validation-step">Dup</span>
+              </div>
+            </div>
+
+            <svg width="36" height="20" viewBox="0 0 36 20" class="shrink-0 mx-1.5 compliance-connector"><line x1="0" y1="10" x2="28" y2="10" stroke="#CBD5E1" stroke-width="2"/><polygon points="28,5 36,10 28,15" fill="#CBD5E1"/></svg>
+
+            <!-- 3. Present to Buyer -->
+            <div class="flow-node node-w" data-layer="compliance" data-node-id="buy-present" onclick="showDetail('buy','buy-present')">
+              <div class="flex gap-1 mb-1.5"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-buyer-light text-buyer">Buyer</span></div>
+              <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Present to Buyer</h4>
+              <p class="text-[10px] text-gray-500 mt-0.5">Portal view + notification</p>
+            </div>
+
+            <!-- Fan-out SVG -->
+            <svg viewBox="0 0 56 280" class="shrink-0 mx-1 payment-connector" style="width:44px; height:280px;">
+              <text x="0" y="14" fill="#B45309" font-size="10" font-weight="700" font-family="Syne, sans-serif">PAY OPTIONS</text>
+              <path d="M 0 140 C 28 140, 28 32, 52 32" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+              <polygon points="49,28 56,32 49,36" fill="#F7B600"/>
+              <line x1="0" y1="140" x2="52" y2="140" stroke="#F7B600" stroke-width="2" class="gold-dash"/>
+              <polygon points="49,136 56,140 49,144" fill="#F7B600"/>
+              <path d="M 0 140 C 28 140, 28 248, 52 248" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+              <polygon points="49,244 56,248 49,252" fill="#F7B600"/>
+            </svg>
+
+            <!-- PAYMENT ZONE: 3 options + merge + execute -->
+            <div class="payment-zone flex items-center gap-0 px-3 py-7 pt-9">
+              <span class="payment-zone-label">Payment Layer -- Visa + Clear</span>
+
+              <!-- 3 payment options -->
+              <div class="flex flex-col justify-between shrink-0" style="height:280px;">
+                <div class="flow-node node-w-sm" data-layer="payment" data-node-id="buy-qr" onclick="showDetail('buy','buy-qr')">
+                  <div class="flex gap-1 mb-1"><span class="party-badge bg-payfac-light text-visa">Visa</span><span class="party-badge bg-buyer-light text-buyer">Buyer</span></div>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">QR Code Payment</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">Scan to pay</p>
+                </div>
+                <div class="flow-node node-w-sm" data-layer="payment" data-node-id="buy-link" onclick="showDetail('buy','buy-link')">
+                  <div class="flex gap-1 mb-1"><span class="party-badge bg-payfac-light text-visa">Visa</span><span class="party-badge bg-buyer-light text-buyer">Buyer</span></div>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Click-to-Pay Link</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">Visa secure page</p>
+                </div>
+                <div class="flow-node node-w-sm" data-layer="payment" data-node-id="buy-incentives" onclick="showDetail('buy','buy-incentives')">
+                  <div class="flex gap-1 mb-1"><span class="party-badge bg-payfac-light text-visa">Visa</span><span class="party-badge bg-buyer-light text-buyer">Buyer</span></div>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Smart Incentives</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">Discounts, EMI, bulk pay</p>
+                </div>
+              </div>
+
+              <!-- Merge SVG -->
+              <svg viewBox="0 0 56 280" class="shrink-0" style="width:44px; height:280px;">
+                <path d="M 0 32 C 28 32, 28 140, 52 140" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+                <path d="M 0 140 L 52 140" stroke="#F7B600" stroke-width="2" class="gold-dash"/>
+                <path d="M 0 248 C 28 248, 28 140, 52 140" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+                <polygon points="49,136 56,140 49,144" fill="#F7B600"/>
+              </svg>
+
+              <!-- Payment Execution -->
+              <div class="flow-node node-w shrink-0" data-layer="payment" data-node-id="buy-execute" onclick="showDetail('buy','buy-execute')">
+                <div class="flex gap-1 mb-1.5"><span class="party-badge bg-buyer-light text-buyer">Buyer</span><span class="party-badge bg-payfac-light text-visa">Visa</span></div>
+                <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Payment via Visa Rails</h4>
+                <p class="text-[10px] text-gray-500 mt-0.5">Webhook to Clear</p>
+              </div>
+            </div>
+            <!-- END PAYMENT ZONE -->
+
+            <svg width="36" height="20" viewBox="0 0 36 20" class="shrink-0 mx-1.5 compliance-connector"><line x1="0" y1="10" x2="28" y2="10" stroke="#CBD5E1" stroke-width="2"/><polygon points="28,5 36,10 28,15" fill="#CBD5E1"/></svg>
+
+            <!-- Final: Notify -->
+            <div class="flow-node node-w" data-layer="compliance" data-node-id="buy-notify" onclick="showDetail('buy','buy-notify')">
+              <div class="flex gap-1 mb-1.5"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-seller-light text-seller">Seller</span></div>
+              <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Seller Notified</h4>
+              <p class="text-[10px] text-gray-500 mt-0.5">Invoice marked Paid</p>
+            </div>
+
+          </div>
+        </div>
+        <!-- Security & Infrastructure -->
+        <div class="security-strip">
+          <span class="strip-label mr-1">Security</span>
+          <span class="security-badge badge-green"><svg fill="none" stroke="#16A34A" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>OpenPeppol Certified</span>
+          <span class="security-badge badge-blue"><svg fill="none" stroke="#2563EB" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>mTLS API</span>
+          <span class="security-badge badge-purple"><svg fill="none" stroke="#7C3AED" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Peppol PKI</span>
+          <span class="security-badge badge-green"><svg fill="none" stroke="#16A34A" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>AES-256</span>
+          <span class="security-badge badge-gray"><svg fill="none" stroke="#6B7280" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>FTA Signing</span>
+          <span class="security-badge badge-visa"><svg fill="none" stroke="#B45309" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>3DS Auth</span>
+          <span class="security-divider"></span>
+          <span class="strip-label mr-1">Infrastructure</span>
+          <span class="security-badge badge-teal"><svg fill="none" stroke="#0D9488" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>GCC-Hosted (UAE)</span>
+          <span class="security-badge badge-teal"><svg fill="none" stroke="#0D9488" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Data Residency</span>
+          <span class="security-badge badge-teal"><svg fill="none" stroke="#0D9488" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>ISO 27001</span>
+        </div>
+      </div>
+
+      <!-- Detail Panel -->
+      <div id="buyDetailPanel" class="detail-panel bg-white rounded-xl shadow-lg border-2 border-primary overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <div><div id="buyDetailParties" class="flex flex-wrap gap-1.5 mb-2"></div><h3 id="buyDetailTitle" class="font-heading font-bold text-lg text-gray-900"></h3><p id="buyDetailSubtitle" class="text-sm text-gray-500 mt-0.5"></p></div>
+            <button onclick="closeDetail('buy')" class="text-gray-400 hover:text-gray-600 p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+          </div>
+          <p id="buyDetailBody" class="text-sm text-gray-700 leading-relaxed mb-4"></p>
+          <div class="bg-gray-50 rounded-lg p-3"><p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Data Flow</p><p id="buyDetailDataFlow" class="text-xs text-gray-600"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: WHAT USERS SEE -->
+    <section id="what-users-see" class="tab-section">
+      <div class="mb-8">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-3">What Users See</h1>
+        <p class="text-gray-600 max-w-2xl text-base leading-relaxed">From the seller's invoice to the buyer's payment flow -- every touchpoint carries Visa branding and routes through Visa rails.</p>
+      </div>
+
+      <h3 class="font-heading font-bold text-lg text-gray-900 mb-4">The Invoice</h3>
+      <div class="invoice-mockup mb-12">
+        <div class="flex justify-between items-start mb-6">
+          <div><div class="w-10 h-10 bg-gray-200 rounded flex items-center justify-center mb-2"><span class="text-gray-500 text-xs font-bold">LOGO</span></div><p class="text-xs text-gray-400">Acme Trading LLC</p></div>
+          <div class="text-right"><h2 class="font-heading font-bold text-2xl text-gray-900">INVOICE</h2><p class="text-xs text-gray-500 mt-1">INV-2026-0847</p><p class="text-xs text-gray-500">Date: 15 Mar 2026</p></div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-6 text-xs text-gray-600">
+          <div><p class="font-semibold text-gray-800 mb-1">From:</p><p>Acme Trading LLC<br/>Dubai Silicon Oasis, Dubai<br/>TRN: 100234567800003</p></div>
+          <div><p class="font-semibold text-gray-800 mb-1">To:</p><p>Gulf Enterprises Co.<br/>Business Bay, Dubai<br/>TRN: 100876543200001</p></div>
+        </div>
+        <table class="invoice-table mb-4">
+          <thead><tr><th>Description</th><th class="text-right">Qty</th><th class="text-right">Rate (AED)</th><th class="text-right">Amount (AED)</th></tr></thead>
+          <tbody>
+            <tr><td>Consulting Services -- Phase 1</td><td class="text-right">1</td><td class="text-right">25,000</td><td class="text-right">25,000</td></tr>
+            <tr><td>Implementation Support</td><td class="text-right">1</td><td class="text-right">20,000</td><td class="text-right">20,000</td></tr>
+            <tr><td>Technical Support (Monthly)</td><td class="text-right">1</td><td class="text-right">5,000</td><td class="text-right">5,000</td></tr>
+          </tbody>
+        </table>
+        <div class="flex justify-end mb-6">
+          <div class="text-right text-sm space-y-1">
+            <p class="text-gray-600">Subtotal: <span class="font-semibold text-gray-800">AED 50,000.00</span></p>
+            <p class="text-gray-600">VAT (5%): <span class="font-semibold text-gray-800">AED 2,500.00</span></p>
+            <p class="text-gray-900 font-bold text-base border-t border-gray-200 pt-1 mt-1">Total: AED 52,500.00</p>
+          </div>
+        </div>
+        <div class="border-2 rounded-xl p-5 bg-gradient-to-r from-amber-50 to-yellow-50" style="border-color: #F7B600;">
+          <h4 class="font-heading font-bold text-sm text-gray-900 mb-3 text-center">Pay This Invoice</h4>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button class="pay-button-visa"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>Pay with Visa -- AED 52,500.00</button>
+            <div class="qr-placeholder"><span>Scan to Pay<br/>QR Code</span></div>
+          </div>
+          <p class="text-center text-[10px] text-gray-400 mt-3 flex items-center justify-center gap-2">
+            <span class="inline-flex items-center gap-1"><span class="w-4 h-4 bg-visa rounded flex items-center justify-center"><span class="text-white" style="font-size:6px; font-weight:800;">V</span></span> Visa</span>+<span class="inline-flex items-center gap-1"><span class="w-4 h-4 bg-primary rounded flex items-center justify-center"><span class="text-white" style="font-size:6px; font-weight:800;">C</span></span> Clear</span>
+          </p>
+        </div>
+      </div>
+
+      <h3 class="font-heading font-bold text-lg text-gray-900 mb-4">The Buyer Flow</h3>
+      <div class="flex gap-6 overflow-x-auto pb-4" style="-webkit-overflow-scrolling: touch;">
+        <div class="phone-mockup"><div class="phone-notch"></div><div class="phone-body">
+          <div class="flex items-center gap-2 mb-4"><div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center"><svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg></div><p class="text-xs font-semibold text-gray-800">New Invoice</p></div>
+          <div class="bg-gray-50 rounded-lg p-3 mb-3"><p class="text-xs font-semibold text-gray-800">Invoice from Acme Corp</p><p class="font-heading font-bold text-lg text-gray-900 mt-1">AED 52,500.00</p><p class="text-[10px] text-gray-500 mt-1">INV-2026-0847 &middot; Due: 14 Apr 2026</p></div>
+          <button class="w-full bg-primary text-white text-xs font-semibold py-2.5 rounded-lg">View &amp; Pay</button>
+          <p class="text-center text-[10px] text-gray-400 mt-6 font-heading font-semibold">1 / 4 -- Invoice Received</p>
+        </div></div>
+        <div class="phone-mockup"><div class="phone-notch"></div><div class="phone-body">
+          <p class="text-xs font-semibold text-gray-800 mb-3">Choose Payment Method</p>
+          <div class="space-y-2.5">
+            <div class="border-2 border-visa rounded-lg p-3 bg-blue-50/30"><div class="flex items-center gap-2 mb-1"><div class="w-6 h-6 bg-visa rounded flex items-center justify-center"><span class="text-white" style="font-size:7px; font-weight:800;">V</span></div><span class="text-xs font-bold text-visa">Click-to-Pay</span></div><p class="text-[10px] text-gray-500">Pay with Visa card via secure link</p></div>
+            <div class="border border-gray-200 rounded-lg p-3"><div class="flex items-center gap-2 mb-1"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg><span class="text-xs font-bold text-gray-700">QR Code</span></div><p class="text-[10px] text-gray-500">Scan with banking app</p></div>
+            <div class="border border-gray-200 rounded-lg p-3"><div class="flex items-center gap-2 mb-1"><svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span class="text-xs font-bold text-amber-700">Smart Incentives</span></div><p class="text-[10px] text-gray-500">Early pay discounts &middot; EMI &middot; Bulk pay</p></div>
+          </div>
+          <p class="text-center text-[10px] text-gray-400 mt-6 font-heading font-semibold">2 / 4 -- Choose Payment</p>
+        </div></div>
+        <div class="phone-mockup"><div class="phone-notch"></div><div class="phone-body">
+          <div class="flex items-center gap-2 mb-4"><div class="w-6 h-6 bg-visa rounded flex items-center justify-center"><span class="text-white" style="font-size:7px; font-weight:800;">V</span></div><p class="text-xs font-semibold text-visa">Visa Secure Payment</p></div>
+          <div class="bg-gray-50 rounded-lg p-3 mb-3"><p class="text-[10px] text-gray-500 mb-1">Amount</p><p class="font-heading font-bold text-lg text-gray-900">AED 52,500.00</p><p class="text-[10px] text-gray-500 mt-1">To: Acme Trading LLC</p></div>
+          <div class="space-y-2 mb-3">
+            <div class="bg-white border border-gray-200 rounded-lg p-2.5"><p class="text-[10px] text-gray-500 mb-0.5">Card</p><p class="text-xs text-gray-800 font-medium">**** **** **** 4242</p></div>
+            <div class="bg-white border border-gray-200 rounded-lg p-2.5"><p class="text-[10px] text-gray-500 mb-0.5">Invoice Ref</p><p class="text-xs text-gray-800 font-medium">INV-2026-0847</p></div>
+          </div>
+          <div class="flex items-center gap-1.5 mb-3"><svg class="w-3.5 h-3.5 text-positive" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><p class="text-[10px] text-positive font-semibold">3D Secure Verified</p></div>
+          <button class="w-full bg-visa text-white text-xs font-bold py-2.5 rounded-lg">Pay Now</button>
+          <p class="text-center text-[10px] text-gray-400 mt-6 font-heading font-semibold">3 / 4 -- Visa Secure Payment</p>
+        </div></div>
+        <div class="phone-mockup"><div class="phone-notch"></div><div class="phone-body text-center">
+          <div class="w-14 h-14 bg-positive/10 rounded-full flex items-center justify-center mx-auto mt-4 mb-3"><svg class="w-7 h-7 text-positive" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
+          <p class="font-heading font-bold text-positive text-sm mb-1">Payment Confirmed</p>
+          <p class="font-heading font-bold text-xl text-gray-900 mb-4">AED 52,500.00</p>
+          <div class="bg-gray-50 rounded-lg p-3 text-left space-y-2 text-xs">
+            <div class="flex justify-between"><span class="text-gray-500">Invoice</span><span class="text-gray-800 font-medium">INV-2026-0847</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">Status</span><span class="text-positive font-semibold">Reconciled</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">Seller notified</span><span class="text-gray-800 font-medium">15 Mar, 10:42 AM</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">Via</span><span class="text-visa font-semibold">Visa Rails</span></div>
+          </div>
+          <p class="text-center text-[10px] text-gray-400 mt-6 font-heading font-semibold">4 / 4 -- Payment Confirmed</p>
+        </div></div>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-gray-400 mt-2 lg:hidden"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg><span>Scroll to see all screens</span></div>
+    </section>
+
+    <!-- TAB 5: YOUR RETURNS -->
+    <section id="returns" class="tab-section">
+      <div class="mb-8">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-3">What Visa and Mashreq Capture</h1>
+        <p class="text-gray-600 max-w-2xl text-base leading-relaxed">This partnership turns a compliance mandate into compounding payment volume for Visa and a new financing pipeline for Mashreq.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover border-t-4 border-visa">
+          <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 bg-visa rounded-lg flex items-center justify-center"><span class="text-white text-sm font-bold font-heading">V</span></div><h3 class="font-heading font-bold text-lg text-visa">B2B Payment Volume</h3></div>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 text-visa mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>Every e-Invoice becomes a Visa transaction</strong> -- payment links embedded at the point of invoice creation, not as an afterthought</span></li>
+            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 text-visa mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>350K+ businesses mandatory adoption</strong> -- compliance drives the volume, Visa captures the payment layer</span></li>
+            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 text-visa mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>Displace cheques and bank transfers</strong> -- digital-first B2B payments, increasing Visa's share of UAE commercial transactions</span></li>
+            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 text-visa mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>Rich B2B payment data</strong> -- invoice amounts, payment timing, industry patterns, buyer-seller relationships</span></li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover border-t-4 border-mashreq">
+          <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 bg-mashreq rounded-lg flex items-center justify-center"><span class="text-white text-sm font-bold font-heading">M</span></div><h3 class="font-heading font-bold text-lg text-mashreq">Invoice Financing Pipeline</h3></div>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 text-mashreq mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>Finance against FTA-validated invoices</strong> -- every invoice is schema-checked, de-duplicated, and government-reported before reaching Mashreq</span></li>
+            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 text-mashreq mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>New SME lending channel</strong> -- 350K+ businesses entering the e-Invoicing pipeline, each a potential financing customer</span></li>
+            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 text-mashreq mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>Reduced underwriting risk</strong> -- pre-validated, de-duplicated data with government clearance UUID as proof of legitimacy</span></li>
+            <li class="flex items-start gap-2.5"><svg class="w-4 h-4 text-mashreq mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>Supply chain financing</strong> -- pay sellers immediately via Visa rails, collect from buyers on terms, earning the spread</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm p-6 card-hover border-t-4 border-primary mb-6">
+        <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center"><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div><h3 class="font-heading font-bold text-lg text-gray-900">SME Adoption Drives Both Volumes</h3></div>
+        <p class="text-sm text-gray-600 mb-3">350K+ SMEs gain faster payments and embedded financing -- driving adoption that feeds both Visa and Mashreq volume.</p>
+        <div class="grid sm:grid-cols-4 gap-3">
+          <div class="bg-gray-50 rounded-lg p-3"><p class="text-xs text-gray-700"><strong>Faster payment cycles</strong> -- 30-90 day DSO to near-instant via Visa</p></div>
+          <div class="bg-gray-50 rounded-lg p-3"><p class="text-xs text-gray-700"><strong>Embedded payment links</strong> -- no manual follow-up needed</p></div>
+          <div class="bg-gray-50 rounded-lg p-3"><p class="text-xs text-gray-700"><strong>Mashreq financing access</strong> -- factoring against validated invoices</p></div>
+          <div class="bg-gray-50 rounded-lg p-3"><p class="text-xs text-gray-700"><strong>Auto reconciliation</strong> -- invoices match payments automatically</p></div>
+        </div>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-start gap-3">
+        <div class="w-8 h-8 bg-clear rounded-lg flex items-center justify-center shrink-0"><span class="text-white text-xs font-bold font-heading">C</span></div>
+        <div>
+          <h4 class="font-heading font-semibold text-sm text-gray-700 mb-1">Platform Alignment -- Clear</h4>
+          <p class="text-xs text-gray-500 leading-relaxed">Clear's incentives are fully aligned: higher ASP adoption grows Visa payment volume, validated invoice data feeds Mashreq's financing pipeline. Revenue scales with transaction throughput -- every Visa payment and Mashreq financing event benefits all three parties. Clear already operates as a dominant e-Invoicing platform in India (1M+ businesses), KSA, Malaysia, and the EU -- bringing battle-tested infrastructure and regulatory expertise to the UAE market.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: ARCHITECTURE & SECURITY -->
+    <section id="architecture" class="tab-section">
+      <div class="mb-8">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Architecture, Security &amp; Infrastructure</h1>
+        <p class="text-gray-600 max-w-2xl text-base leading-relaxed">Built for enterprise-grade payment security and GCC data sovereignty. Click integrations to see data flows.</p>
+      </div>
+      <h3 class="font-heading font-bold text-lg text-gray-900 mb-4">Integration Hub</h3>
+      <div class="bg-white rounded-xl shadow-sm p-6 sm:p-10 mb-6">
+        <div class="relative max-w-4xl mx-auto">
+          <div class="flex justify-center mb-10">
+            <div class="integration-node bg-clear-light border-2 border-clear rounded-2xl p-6 text-center z-10 relative" onclick="toggleIntegration(this)">
+              <div class="w-16 h-16 bg-clear rounded-xl flex items-center justify-center mx-auto mb-2"><span class="text-white text-xl font-bold font-heading">C</span></div>
+              <h4 class="font-heading font-bold text-clear text-lg">Clear</h4>
+              <p class="text-xs text-gray-500 mt-1">e-Invoicing ASP</p>
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="integration-node bg-white border border-gray-200 rounded-xl p-5" onclick="toggleIntegration(this)">
+              <div class="flex items-center gap-3 mb-2"><div class="w-8 h-8 bg-seller-light rounded-lg flex items-center justify-center shrink-0"><span class="text-seller text-xs font-bold">S</span></div><span class="data-arrow text-gray-400">&harr;</span><div class="w-8 h-8 bg-clear-light rounded-lg flex items-center justify-center shrink-0"><span class="text-clear text-xs font-bold">C</span></div></div>
+              <h4 class="font-heading font-semibold text-sm text-gray-900">Seller ERP &harr; Clear</h4><p class="text-xs text-gray-500 mt-1">Invoice data submission &amp; status</p>
+              <div class="integration-detail bg-gray-50 rounded-lg mt-3"><div class="space-y-2 text-xs"><div><strong class="text-gray-700">Data:</strong> <span class="text-gray-600">Structured invoice (PINT AE / UBL 2.1), line items, tax calculations</span></div><div><strong class="text-gray-700">Direction:</strong> <span class="text-gray-600">Seller &rarr; Clear | Clear &rarr; Seller (status, payment)</span></div><div><strong class="text-gray-700">Protocol:</strong> <span class="text-gray-600">REST API / ERP plugin / CSV/XML</span></div></div></div>
+            </div>
+            <div class="integration-node bg-white border border-gray-200 rounded-xl p-5" onclick="toggleIntegration(this)">
+              <div class="flex items-center gap-3 mb-2"><div class="w-8 h-8 bg-clear-light rounded-lg flex items-center justify-center shrink-0"><span class="text-clear text-xs font-bold">C</span></div><span class="data-arrow text-gray-400">&harr;</span><div class="w-8 h-8 bg-payfac-light rounded-lg flex items-center justify-center shrink-0"><span class="text-visa text-xs font-bold">V</span></div></div>
+              <h4 class="font-heading font-semibold text-sm text-gray-900">Clear &harr; Visa PayFac</h4><p class="text-xs text-gray-500 mt-1">Payment link request &amp; embed</p>
+              <div class="integration-detail bg-gray-50 rounded-lg mt-3"><div class="space-y-2 text-xs"><div><strong class="text-gray-700">Data:</strong> <span class="text-gray-600">Invoice amount, currency, merchant ID, payment link URL, QR, callbacks</span></div><div><strong class="text-gray-700">Direction:</strong> <span class="text-gray-600">Clear &rarr; Visa (request) | Visa &rarr; Clear (link + webhooks)</span></div><div><strong class="text-gray-700">Protocol:</strong> <span class="text-gray-600">Visa PayFac API (REST), webhooks</span></div></div></div>
+            </div>
+            <div class="integration-node bg-white border border-gray-200 rounded-xl p-5" onclick="toggleIntegration(this)">
+              <div class="flex items-center gap-3 mb-2"><div class="w-8 h-8 bg-clear-light rounded-lg flex items-center justify-center shrink-0"><span class="text-clear text-xs font-bold">C</span></div><span class="data-arrow text-gray-400">&rarr;</span><div class="w-8 h-8 bg-buyer-light rounded-lg flex items-center justify-center shrink-0"><span class="text-buyer text-xs font-bold">B</span></div></div>
+              <h4 class="font-heading font-semibold text-sm text-gray-900">Clear &rarr; Buyer ASP (Peppol)</h4><p class="text-xs text-gray-500 mt-1">Invoice delivery via Peppol</p>
+              <div class="integration-detail bg-gray-50 rounded-lg mt-3"><div class="space-y-2 text-xs"><div><strong class="text-gray-700">Data:</strong> <span class="text-gray-600">Validated e-Invoice + payment link, delivery receipt, MDN</span></div><div><strong class="text-gray-700">Direction:</strong> <span class="text-gray-600">Clear &rarr; Peppol SMP &rarr; Buyer ASP</span></div><div><strong class="text-gray-700">Protocol:</strong> <span class="text-gray-600">Peppol AS4, signed SBDH envelope</span></div></div></div>
+            </div>
+            <div class="integration-node bg-white border border-gray-200 rounded-xl p-5" onclick="toggleIntegration(this)">
+              <div class="flex items-center gap-3 mb-2"><div class="w-8 h-8 bg-clear-light rounded-lg flex items-center justify-center shrink-0"><span class="text-clear text-xs font-bold">C</span></div><span class="data-arrow text-gray-400">&rarr;</span><div class="w-8 h-8 bg-fta-light rounded-lg flex items-center justify-center shrink-0"><span class="text-fta text-xs font-bold">F</span></div></div>
+              <h4 class="font-heading font-semibold text-sm text-gray-900">Clear &rarr; FTA</h4><p class="text-xs text-gray-500 mt-1">Government reporting</p>
+              <div class="integration-detail bg-gray-50 rounded-lg mt-3"><div class="space-y-2 text-xs"><div><strong class="text-gray-700">Data:</strong> <span class="text-gray-600">Invoice hash, VAT, seller/buyer TRN, CTC metadata</span></div><div><strong class="text-gray-700">Direction:</strong> <span class="text-gray-600">Clear &rarr; FTA | FTA &rarr; Clear (clearance UUID)</span></div><div><strong class="text-gray-700">Protocol:</strong> <span class="text-gray-600">FTA e-Invoicing API (REST)</span></div></div></div>
+            </div>
+            <div class="integration-node bg-white border border-gray-200 rounded-xl p-5" onclick="toggleIntegration(this)">
+              <div class="flex items-center gap-3 mb-2"><div class="w-8 h-8 bg-clear-light rounded-lg flex items-center justify-center shrink-0"><span class="text-clear text-xs font-bold">C</span></div><span class="data-arrow text-gray-400">&harr;</span><div class="w-8 h-8 bg-mashreq-light rounded-lg flex items-center justify-center shrink-0"><span class="text-mashreq text-xs font-bold">M</span></div></div>
+              <h4 class="font-heading font-semibold text-sm text-gray-900">Clear &harr; Mashreq</h4><p class="text-xs text-gray-500 mt-1">Invoice financing</p>
+              <div class="integration-detail bg-gray-50 rounded-lg mt-3"><div class="space-y-2 text-xs"><div><strong class="text-gray-700">Data:</strong> <span class="text-gray-600">Validated invoice data, creditworthiness, duplicate results, financing terms</span></div><div><strong class="text-gray-700">Direction:</strong> <span class="text-gray-600">Clear &rarr; Mashreq (request) | Mashreq &rarr; Clear (approval)</span></div><div><strong class="text-gray-700">Protocol:</strong> <span class="text-gray-600">Mashreq Open Banking API (REST)</span></div></div></div>
+            </div>
+            <div class="integration-node bg-white border border-gray-200 rounded-xl p-5" onclick="toggleIntegration(this)">
+              <div class="flex items-center gap-3 mb-2"><div class="w-8 h-8 bg-payfac-light rounded-lg flex items-center justify-center shrink-0"><span class="text-visa text-xs font-bold">V</span></div><span class="data-arrow text-gray-400">&rarr;</span><div class="w-8 h-8 bg-buyer-light rounded-lg flex items-center justify-center shrink-0"><span class="text-buyer text-xs font-bold">B</span></div></div>
+              <h4 class="font-heading font-semibold text-sm text-gray-900">Visa PayFac &rarr; Buyer</h4><p class="text-xs text-gray-500 mt-1">Payment link &amp; QR</p>
+              <div class="integration-detail bg-gray-50 rounded-lg mt-3"><div class="space-y-2 text-xs"><div><strong class="text-gray-700">Data:</strong> <span class="text-gray-600">Payment link URL, QR code, invoice ref, amount, confirmation</span></div><div><strong class="text-gray-700">Direction:</strong> <span class="text-gray-600">Visa &rarr; Buyer (link) | Buyer &rarr; Visa (payment)</span></div><div><strong class="text-gray-700">Protocol:</strong> <span class="text-gray-600">HTTPS link, Visa Checkout / Visa Direct</span></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="font-heading font-bold text-lg text-gray-900 mb-4 mt-10">Proven at Scale -- Clear's Global e-Invoicing Footprint</h3>
+      <p class="text-sm text-gray-600 mb-4">Clear is not building e-Invoicing for the first time in UAE. The platform already processes millions of invoices across 4 regulatory regimes, bringing battle-tested infrastructure and deep compliance expertise.</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-xl shadow-sm p-5 card-hover border-l-4 border-orange-400">
+          <h4 class="font-heading font-bold text-sm text-gray-900 mb-1">India</h4>
+          <p class="text-xs text-gray-600 leading-relaxed">Dominant e-Invoicing ASP. 1M+ businesses onboarded. Govt-certified GST e-Invoice platform processing millions of documents monthly.</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-5 card-hover border-l-4 border-green-600">
+          <h4 class="font-heading font-bold text-sm text-gray-900 mb-1">KSA (Saudi Arabia)</h4>
+          <p class="text-xs text-gray-600 leading-relaxed">ZATCA Phase 2 FATOORA certified. Live with enterprise clients on the Saudi e-Invoicing mandate.</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-5 card-hover border-l-4 border-blue-500">
+          <h4 class="font-heading font-bold text-sm text-gray-900 mb-1">Malaysia</h4>
+          <p class="text-xs text-gray-600 leading-relaxed">MyInvois-certified e-Invoicing provider. Live since Aug 2024 under Malaysia's LHDN mandate.</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-5 card-hover border-l-4 border-indigo-500">
+          <h4 class="font-heading font-bold text-sm text-gray-900 mb-1">EU (Peppol)</h4>
+          <p class="text-xs text-gray-600 leading-relaxed">Certified Peppol Access Point. Multi-country coverage across the European e-Invoicing network.</p>
+        </div>
+      </div>
+      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4 mb-10">
+        <p class="text-sm text-gray-700 text-center"><strong>UAE is market #5</strong> -- Clear brings proven compliance engines, multi-format transformation, and enterprise-scale infrastructure. Not a prototype.</p>
+      </div>
+
+      <h3 class="font-heading font-bold text-lg text-gray-900 mb-4">Security &amp; Compliance</h3>
+      <p class="text-sm text-gray-600 mb-4">Enterprise-grade, audited security across every layer -- from Visa API communication to government reporting and data storage. Every component is production-hardened across Clear's global deployments.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
+        <div class="security-card"><div class="icon-circle bg-green-50"><svg class="w-5 h-5 text-positive" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div><h4 class="font-heading font-semibold text-sm text-gray-900">OpenPeppol Certified</h4><p class="text-xs text-gray-500">Certified Peppol Access Point operator</p></div>
+        <div class="security-card"><div class="icon-circle bg-blue-50"><svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div><h4 class="font-heading font-semibold text-sm text-gray-900">mTLS</h4><p class="text-xs text-gray-500">Mutual TLS on all API calls to Visa PayFac</p></div>
+        <div class="security-card"><div class="icon-circle bg-purple-50"><svg class="w-5 h-5 text-buyer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div><h4 class="font-heading font-semibold text-sm text-gray-900">Peppol PKI</h4><p class="text-xs text-gray-500">Certificate-based sender authentication</p></div>
+        <div class="security-card"><div class="icon-circle bg-green-50"><svg class="w-5 h-5 text-positive" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></div><h4 class="font-heading font-semibold text-sm text-gray-900">AES-256</h4><p class="text-xs text-gray-500">Encryption at rest and in transit</p></div>
+        <div class="security-card"><div class="icon-circle bg-gray-50"><svg class="w-5 h-5 text-neutral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div><h4 class="font-heading font-semibold text-sm text-gray-900">FTA Signing</h4><p class="text-xs text-gray-500">Government-mandated digital signatures</p></div>
+        <div class="security-card"><div class="icon-circle bg-blue-50"><svg class="w-5 h-5 text-visa" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div><h4 class="font-heading font-semibold text-sm text-gray-900">3D Secure</h4><p class="text-xs text-gray-500">Visa 3DS authentication for buyer payments</p></div>
+        <div class="security-card"><div class="icon-circle bg-teal-50"><svg class="w-5 h-5 text-mashreq" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div><h4 class="font-heading font-semibold text-sm text-gray-900">ISO 27001</h4><p class="text-xs text-gray-500">Information security management certified</p></div>
+        <div class="security-card"><div class="icon-circle bg-amber-50"><svg class="w-5 h-5 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></div><h4 class="font-heading font-semibold text-sm text-gray-900">SOC 2 Type II</h4><p class="text-xs text-gray-500">Audited security controls and processes</p></div>
+      </div>
+
+      <h3 class="font-heading font-bold text-lg text-gray-900 mb-4">GCC Infrastructure</h3>
+      <div class="bg-gradient-to-r from-teal-50 to-cyan-50 border border-teal-200 rounded-xl p-6 shadow-sm">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center shrink-0"><svg class="w-6 h-6 text-mashreq" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+          <div>
+            <h4 class="font-heading font-bold text-mashreq text-lg mb-2">Hosted in UAE (GCC Region)</h4>
+            <div class="grid sm:grid-cols-3 gap-3">
+              <div class="bg-white/70 rounded-lg p-3"><p class="text-xs font-semibold text-gray-800 mb-0.5">Data Residency</p><p class="text-xs text-gray-600">All invoice, payment, and financing data stays within GCC data centers</p></div>
+              <div class="bg-white/70 rounded-lg p-3"><p class="text-xs font-semibold text-gray-800 mb-0.5">Low Latency</p><p class="text-xs text-gray-600">Sub-10ms API response times for UAE-based Visa PayFac and FTA calls</p></div>
+              <div class="bg-white/70 rounded-lg p-3"><p class="text-xs font-semibold text-gray-800 mb-0.5">Data Sovereignty</p><p class="text-xs text-gray-600">Compliant with UAE data protection regulations and CBUAE requirements</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-gray-100 py-6 text-center"><p class="text-xs text-gray-400">Visa x Clear UAE -- Confidential. For internal discussion only.</p></footer>
+
+  <script>
+    var partyColors = {
+      "Seller": { bg: "bg-seller-light", text: "text-seller" },
+      "Clear": { bg: "bg-clear-light", text: "text-clear" },
+      "Visa PayFac": { bg: "bg-payfac-light", text: "text-visa" },
+      "Buyer ASP": { bg: "bg-buyer-light", text: "text-buyer" },
+      "Buyer": { bg: "bg-buyer-light", text: "text-buyer" },
+      "FTA": { bg: "bg-fta-light", text: "text-fta" },
+      "Mashreq": { bg: "bg-mashreq-light", text: "text-mashreq" },
+    };
+
+    var nodeDetails = {
+      'sell-erp': { title:'Invoice Created in ERP', subtitle:'The starting point for every Visa B2B transaction', parties:['Seller'], detail:'The seller creates an invoice in their ERP or accounting software. This is the origin of every potential Visa payment -- the invoice includes buyer details, line items, quantities, unit prices, VAT calculations, and payment terms. Once submitted, Clear\'s platform transforms it into a payment-ready e-Invoice.', dataFlow:'Seller ERP generates structured invoice data with all fields required per UAE e-Invoicing mandate.' },
+      'sell-transform': { title:'Ingest + Transform to PINT AE', subtitle:'Structured data enables Visa link embedding', parties:['Seller','Clear'], detail:'The seller\'s invoice data is transformed into PINT AE (Peppol International, UAE profile) format -- a UBL 2.1 compliant XML structure. This structured format is what enables Visa payment links and Mashreq financing data to be embedded. Clear\'s platform handles the transformation via ERP plugin or API, including seller/buyer TRN, line-level tax breakdowns, and all FTA-required fields.', dataFlow:'Seller ERP \u2192 Clear: Raw invoice data via API/plugin. Clear generates PINT AE XML with FTA-compliant structure.' },
+      'sell-validate': { title:'Validation Pipeline', subtitle:'Ensures data integrity for Visa and Mashreq', parties:['Clear'], detail:'The validation pipeline ensures every invoice that reaches Visa\'s payment rails and Mashreq\'s financing platform is accurate and compliant. Steps: (1) XSD schema check, (2) XSLT transformation rules, (3) Business rule validation (tax calculations, mandatory fields), (4) Duplicate detection -- critical for Mashreq\'s financing risk model, (5) FTA-specific UAE compliance rules. Clear\'s platform executes this pipeline; any failure rejects the invoice with specific error codes.', dataFlow:'Internal pipeline: XSD \u2192 XSLT \u2192 Business rules \u2192 Duplicate check \u2192 FTA rules. Sequential validation with fail-fast.' },
+      'sell-decision': { title:'Has Payment Link?', subtitle:'Ensuring 100% Visa payment link coverage', parties:['Clear'], detail:'This decision point ensures 100% Visa payment link coverage -- the key metric for B2B payment capture. If the invoice already contains a valid Visa payment link (from an ERP with direct Visa integration), it is validated and proceeds. If missing, the platform routes to Visa PayFac to generate one. The result: every invoice carries a Visa payment mechanism, maximizing transaction capture.', dataFlow:'Platform inspects the invoice\'s additional document reference field for a valid Visa payment URL. Routes to YES (proceed) or NO (request from PayFac).' },
+      'sell-visa-req': { title:'Request Payment Link from Visa PayFac', subtitle:'Visa generates a payment link for this invoice', parties:['Clear','Visa PayFac'], detail:'The Visa PayFac API is called with the invoice amount (AED), seller\'s merchant ID, and a unique invoice reference. Visa PayFac generates a payment link and QR code that are embedded into the e-Invoice XML. This is the moment a compliance document becomes a Visa payment trigger. Clear orchestrates the API call and embeds the result.', dataFlow:'Clear \u2192 Visa PayFac: Amount, merchant ID, invoice ref. Visa \u2192 Clear: Payment link URL + QR data.' },
+      'sell-proceed': { title:'Proceed with Existing Link', subtitle:'Visa payment link already embedded upstream', parties:['Clear'], detail:'The seller\'s ERP already embedded a Visa payment link. The platform validates it\'s active, correctly formatted, and matches the invoice amount. This path means Visa\'s payment link was generated upstream -- still captured as a Visa B2B transaction.', dataFlow:'Platform validates existing payment link against invoice metadata. If valid, proceeds to dispatch.' },
+      'sell-ready': { title:'Invoice + Embedded Payment Link', subtitle:'100% Visa payment coverage achieved', parties:['Clear','Visa PayFac'], detail:'Whether the link was newly generated or pre-existing, every invoice now carries a validated Visa payment mechanism. This is the central value proposition: 100% of invoices carry an embedded Visa payment option, converting every e-Invoice into potential Visa transaction volume. For Mashreq, each validated invoice is also a pre-qualified financing asset.', dataFlow:'Validated PINT AE XML with Visa payment link in additional document reference. Ready for Peppol, FTA, and Mashreq.' },
+      'sell-peppol': { title:'Peppol Delivery to Buyer ASP', subtitle:'Every invoice delivered = a Visa payment link delivered', parties:['Clear','Buyer ASP'], detail:'The e-Invoice -- now carrying a Visa payment link -- is dispatched to the buyer\'s ASP via Peppol AS4 protocol. From Visa\'s perspective, this is distribution: every invoice delivered is a payment link delivered. Clear handles the Peppol network delivery with signed SBDH envelopes and full audit trail.', dataFlow:'Clear \u2192 Peppol SMP \u2192 Buyer ASP (AS4). Buyer ASP \u2192 Clear: delivery receipt / MDN.' },
+      'sell-fta': { title:'FTA Government Reporting', subtitle:'Government validation strengthens Mashreq\'s financing data', parties:['Clear','FTA'], detail:'In parallel, invoice data is submitted to FTA for CTC (Continuous Transaction Controls) compliance. This government reporting step legitimizes the invoice data that Mashreq uses for financing decisions -- FTA-validated invoices carry higher confidence for underwriting. Clear handles the FTA API submission; FTA returns a clearance UUID.', dataFlow:'Clear \u2192 FTA: CTC submission via FTA API. FTA \u2192 Clear: Clearance status / UUID.' },
+      'sell-mashreq': { title:'Mashreq Financing Submission', subtitle:'Pre-validated invoices feed Mashreq\'s lending pipeline', parties:['Clear','Mashreq'], detail:'Mashreq receives the validated, FTA-compliant invoice data for financing assessment. Because the invoice has passed schema validation, business rules, and duplicate detection, Mashreq can underwrite with high confidence and reduced risk. The seller can access early payment while the buyer pays on standard terms. Clear submits the data package via Mashreq\'s Open Banking API.', dataFlow:'Clear \u2192 Mashreq: Validated invoice + seller profile + dup check. Mashreq \u2192 Clear: Eligibility + terms.' },
+      'buy-receive': { title:'e-Invoice Received via Peppol', subtitle:'A payment-enabled invoice reaches the buyer', parties:['Buyer ASP','Clear'], detail:'The inbound e-Invoice arrives from the seller\'s ASP on the Peppol network, carrying a Visa payment link. From Visa\'s perspective, this is the moment a payment-enabled invoice reaches the buyer -- every receipt is a potential Visa transaction. Clear, acting as the buyer\'s ASP, receives the signed SBDH envelope.', dataFlow:'Seller ASP \u2192 Peppol \u2192 Clear (Buyer ASP): SBDH + PINT AE XML + payment link.' },
+      'buy-validate': { title:'Multi-Layer Validation', subtitle:'Protects Visa payment integrity and Mashreq financing quality', parties:['Clear'], detail:'Inbound validation ensures only legitimate, verified invoices reach the buyer\'s payment workflow -- protecting Visa\'s payment integrity and Mashreq\'s financing quality. Steps: (1) Peppol certificate verification -- is the sender a registered ASP? (2) Transport checks -- clean AS4 delivery? (3) XSD/XSLT conformance to PINT AE. (4) Duplicate detection. Clear\'s platform executes these checks; only passing invoices proceed.', dataFlow:'Certificate \u2192 Transport \u2192 XSD/XSLT \u2192 Duplicate detection. Fail = reject with error codes.' },
+      'buy-present': { title:'Invoice Presented to Buyer', subtitle:'Buyer sees invoice and Visa payment options simultaneously', parties:['Clear','Buyer'], detail:'The validated invoice is presented to the buyer via Clear\'s portal with prominent Visa payment options (QR code, click-to-pay link) and smart incentives (early payment discounts, EMI plans, bulk consolidation). This is the conversion point -- the buyer sees the invoice and payment options simultaneously, creating choice architecture that favors Visa capture. Clear handles the portal presentation and notification delivery.', dataFlow:'Clear \u2192 Buyer: Invoice presented via portal with Visa payment CTA + smart incentives. Buyer notified via email/SMS.' },
+      'buy-qr': { title:'QR Code Payment', subtitle:'Visa\'s mobile-first B2B payment path', parties:['Visa PayFac','Buyer'], detail:'Visa\'s payment link generates a QR code the buyer can scan from mobile banking or Visa wallet. The QR encodes amount, merchant ID, and invoice reference for one-tap payment -- a frictionless path from invoice receipt to Visa transaction. This is Visa\'s mobile-first touchpoint in B2B payments.', dataFlow:'Visa payment link \u2192 QR rendered in buyer view. Buyer scans \u2192 Payment via Visa network.' },
+      'buy-link': { title:'Click-to-Pay Link', subtitle:'Visa\'s direct branded touchpoint with the buyer', parties:['Visa PayFac','Buyer'], detail:'Buyer clicks the embedded Visa payment link, opening Visa\'s secure payment page pre-filled with invoice details. 3DS authentication ensures payment security. This is Visa\'s direct branded touchpoint with the buyer -- secure, pre-filled, and linked to a verified invoice. Payment via Visa card or linked bank.', dataFlow:'Payment link URL \u2192 Visa secure page (pre-filled). Buyer authenticates (3DS) + pays.' },
+      'buy-incentives': { title:'Smart Payment Incentives', subtitle:'Discounts, EMI, and bulk pay drive faster Visa transactions', parties:['Visa PayFac','Buyer'], detail:'Buyers are incentivized to pay faster and pay via Visa through three mechanisms: (1) Early payment discounts -- pay within 7 days for a 2% discount, automatically applied at checkout. (2) Bulk payment consolidation -- combine multiple outstanding invoices into a single Visa transaction, reducing payment friction. (3) EMI / installment plans -- split large invoices into monthly Visa payments, making high-value B2B transactions more accessible. Every incentive routes through Visa rails, increasing transaction volume and buyer engagement.', dataFlow:'Clear \u2192 Buyer: Incentive options presented alongside invoice. Buyer selects terms \u2192 Payment via Visa rails with applied discount/EMI schedule.' },
+      'buy-execute': { title:'Payment via Visa Rails', subtitle:'Visa captures B2B payment volume regardless of method', parties:['Buyer','Visa PayFac'], detail:'Regardless of which payment method the buyer chose, the transaction routes through Visa rails. Visa captures the B2B payment volume. A confirmation webhook notifies the platform with status, transaction ID, and timestamp -- creating a verified invoice-to-payment link. This closed-loop data is valuable for both Visa analytics and Mashreq risk models.', dataFlow:'Buyer \u2192 Visa: Payment. Visa \u2192 Clear: Webhook (status, txn ID, timestamp). Visa \u2192 Seller bank: Settlement.' },
+      'buy-notify': { title:'Seller Notified + Status Updated', subtitle:'Visa-powered closed-loop reconciliation', parties:['Clear','Seller'], detail:'Visa\'s payment confirmation triggers automatic reconciliation -- the invoice is marked "Paid" in both the seller\'s and buyer\'s systems. The loop is fully closed: a Visa-powered payment against an FTA-compliant invoice, with zero manual follow-up. Clear\'s platform handles the status update and seller notification in real-time.', dataFlow:'Visa \u2192 Clear: Confirmation. Clear \u2192 Seller: Real-time notification. Both systems: Status = Paid.' }
+    };
+
+    var lastPayfacNodeId = null;
+
+    function showDetail(flowPrefix, nodeId) {
+      var node = nodeDetails[nodeId];
+      if (!node) return;
+      var diagram = document.getElementById(flowPrefix + 'FlowDiagram');
+      diagram.querySelectorAll('.flow-node, .diamond-shape').forEach(function(el) { el.classList.remove('selected'); });
+      var target = diagram.querySelector('[data-node-id="' + nodeId + '"]');
+      if (target) {
+        var diamond = target.querySelector('.diamond-shape');
+        if (diamond) diamond.classList.add('selected');
+        else target.classList.add('selected');
+      }
+      if (nodeId === 'sell-visa-req') {
+        lastPayfacNodeId = nodeId;
+        document.getElementById('sellDetailPanel').classList.remove('open');
+        var payfacPanel = document.getElementById('payfacSubDiagram');
+        payfacPanel.classList.add('open');
+        payfacPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+      var payfacPanel = document.getElementById('payfacSubDiagram');
+      if (payfacPanel) payfacPanel.classList.remove('open');
+      document.getElementById(flowPrefix + 'DetailTitle').textContent = node.title;
+      document.getElementById(flowPrefix + 'DetailSubtitle').textContent = node.subtitle;
+      document.getElementById(flowPrefix + 'DetailBody').textContent = node.detail;
+      document.getElementById(flowPrefix + 'DetailDataFlow').textContent = node.dataFlow;
+      var partiesEl = document.getElementById(flowPrefix + 'DetailParties');
+      partiesEl.innerHTML = node.parties.map(function(p) {
+        var c = partyColors[p] || { bg:'bg-gray-100', text:'text-gray-600' };
+        return '<span class="party-badge ' + c.bg + ' ' + c.text + '">' + p + '</span>';
+      }).join('');
+      var panel = document.getElementById(flowPrefix + 'DetailPanel');
+      panel.classList.add('open');
+      var isPayment = target && target.getAttribute('data-layer') === 'payment';
+      panel.style.borderColor = isPayment ? '#F7B600' : '#2563EB';
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function closeDetail(flowPrefix) {
+      document.getElementById(flowPrefix + 'DetailPanel').classList.remove('open');
+      document.getElementById(flowPrefix + 'FlowDiagram').querySelectorAll('.flow-node, .diamond-shape').forEach(function(el) { el.classList.remove('selected'); });
+    }
+
+    function closePayfacDiagram() {
+      document.getElementById('payfacSubDiagram').classList.remove('open');
+      document.getElementById('sellFlowDiagram').querySelectorAll('.flow-node, .diamond-shape').forEach(function(el) { el.classList.remove('selected'); });
+    }
+
+    function showStandardDetail() {
+      document.getElementById('payfacSubDiagram').classList.remove('open');
+      if (lastPayfacNodeId) {
+        var node = nodeDetails[lastPayfacNodeId];
+        if (node) {
+          document.getElementById('sellDetailTitle').textContent = node.title;
+          document.getElementById('sellDetailSubtitle').textContent = node.subtitle;
+          document.getElementById('sellDetailBody').textContent = node.detail;
+          document.getElementById('sellDetailDataFlow').textContent = node.dataFlow;
+          var partiesEl = document.getElementById('sellDetailParties');
+          partiesEl.innerHTML = node.parties.map(function(p) {
+            var c = partyColors[p] || { bg:'bg-gray-100', text:'text-gray-600' };
+            return '<span class="party-badge ' + c.bg + ' ' + c.text + '">' + p + '</span>';
+          }).join('');
+          var panel = document.getElementById('sellDetailPanel');
+          panel.classList.add('open');
+          panel.style.borderColor = '#F7B600';
+          panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }
+
+    document.querySelectorAll('.layer-toggle').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var flow = this.getAttribute('data-flow'), layer = this.getAttribute('data-layer');
+        document.querySelectorAll('.layer-toggle[data-flow="' + flow + '"]').forEach(function(b) { b.classList.remove('active-toggle'); });
+        this.classList.add('active-toggle');
+        var diagram = document.getElementById(flow + 'FlowDiagram');
+        diagram.classList.remove('filter-compliance', 'filter-payment');
+        if (layer === 'compliance') diagram.classList.add('filter-compliance');
+        if (layer === 'payment') diagram.classList.add('filter-payment');
+      });
+    });
+
+    function toggleIntegration(node) { var d = node.querySelector('.integration-detail'); if (d) d.classList.toggle('open'); }
+
+    var tabMap = { 'opportunity':'opportunity', 'sell-flow':'sell-flow', 'buy-flow':'buy-flow', 'what-users-see':'what-users-see', 'returns':'returns', 'architecture':'architecture' };
+    function activateTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.toggle('active', b.getAttribute('data-tab') === tabId); });
+      document.querySelectorAll('.tab-section').forEach(function(s) {
+        if (s.id === tabId) { s.classList.add('visible'); requestAnimationFrame(function() { requestAnimationFrame(function() { s.classList.add('active-section'); }); }); }
+        else { s.classList.remove('active-section'); var sid = s.id; setTimeout(function() { if (sid !== tabId) document.getElementById(sid).classList.remove('visible'); }, 350); }
+      });
+      if (window.location.hash !== '#' + tabId) history.replaceState(null, '', '#' + tabId);
+      closeDetail('sell'); closeDetail('buy');
+      var payfacPanel = document.getElementById('payfacSubDiagram');
+      if (payfacPanel) payfacPanel.classList.remove('open');
+    }
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.addEventListener('click', function() { activateTab(this.getAttribute('data-tab')); }); });
+    window.addEventListener('hashchange', function() { var h = window.location.hash.slice(1); if (tabMap[h]) activateTab(h); });
+    document.addEventListener('DOMContentLoaded', function() { var h = window.location.hash.slice(1); activateTab(tabMap[h] ? h : 'opportunity'); });
+  </script>
+</body>
+</html>
