@@ -204,6 +204,18 @@
     .status-expired { background: #FEE2E2; color: #991B1B; }
     .status-available { background: #CCFBF1; color: #115E59; }
 
+    /* XML Viewer */
+    .xml-viewer { background: #FAFBFC; border: 1px solid #E5E7EB; border-radius: 0.75rem; overflow: hidden; }
+    .xml-viewer-header { padding: 0.625rem 1rem; background: #F1F5F9; border-bottom: 1px solid #E5E7EB; display: flex; align-items: center; gap: 0.5rem; }
+    .xml-code { padding: 1rem; overflow-x: auto; font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.68rem; line-height: 1.75; color: #374151; white-space: pre; tab-size: 2; }
+    .xml-code .xt { color: #2563EB; }
+    .xml-code .xa { color: #7C3AED; }
+    .xml-code .xv { color: #16A34A; }
+    .xml-code .xc { color: #9CA3AF; font-style: italic; }
+    .xml-hl { background: rgba(247, 182, 0, 0.08); display: block; border-left: 3px solid #F7B600; margin: 0 -1rem; padding: 0.125rem 1rem 0.125rem calc(1rem - 3px); position: relative; }
+    .xml-hl-label { font-family: 'DM Sans', sans-serif; font-size: 0.58rem; font-weight: 700; color: #92400E; background: rgba(247, 182, 0, 0.15); padding: 0.1rem 0.45rem; border-radius: 0.25rem; letter-spacing: 0.02em; white-space: nowrap; margin-left: 0.75rem; vertical-align: middle; }
+    .xml-hl-block { background: rgba(247, 182, 0, 0.06); display: block; border-left: 3px solid #F7B600; margin: 0 -1rem; padding: 0.25rem 1rem 0.25rem calc(1rem - 3px); position: relative; }
+
     .scroll-hint { display: none; }
     @media (max-width: 1024px) { .scroll-hint { display: flex; } }
 
@@ -491,8 +503,8 @@
                 </div>
                 <div class="flow-node node-w" data-layer="payment" data-node-id="sell-email" onclick="showDetail('sell','sell-email')">
                   <div class="flex gap-1 mb-1"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-buyer-light text-buyer">Buyer</span></div>
-                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Email with Pay Link</h4>
-                  <p class="text-[10px] text-gray-500 mt-0.5">QR code + click-to-pay</p>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">Email PDF Invoice</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">PDF + QR code + pay link</p>
                 </div>
                 <div class="flow-node node-w" data-layer="compliance" data-node-id="sell-fta" onclick="showDetail('sell','sell-fta')">
                   <div class="flex gap-1 mb-1"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-fta-light text-fta">FTA</span></div>
@@ -595,28 +607,8 @@
       </div>
 
       <!-- ===== DASHBOARD MOCKUPS ===== -->
-      <h3 class="font-heading font-bold text-lg text-gray-900 mt-10 mb-4">What Visa and Mashreq See</h3>
+      <h3 class="font-heading font-bold text-lg text-gray-900 mt-10 mb-4">What the Seller Sees on ClearTax</h3>
       <div class="dashboard-mockup mb-8">
-        <div class="bg-gray-50 px-5 py-3 border-b border-gray-200 flex flex-wrap items-center justify-between gap-3">
-          <div class="flex items-center gap-2"><div class="w-6 h-6 bg-visa rounded flex items-center justify-center"><span class="text-white" style="font-size:7px; font-weight:800;">V</span></div><span class="text-sm font-bold text-gray-800">Invoice Payment Link Dashboard</span></div>
-          <div class="flex gap-4 text-xs"><span class="text-gray-500"><strong class="text-gray-800">247</strong> invoices with links</span><span class="text-gray-500"><strong class="text-positive">68%</strong> click rate</span><span class="text-gray-500"><strong class="text-visa">AED 12.4M</strong> volume</span></div>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="dashboard-table">
-            <thead><tr><th>Invoice #</th><th>Seller</th><th>Buyer</th><th>Amount (AED)</th><th>Link Status</th><th>Date Sent</th></tr></thead>
-            <tbody>
-              <tr><td class="font-medium">INV-2026-0847</td><td>Acme Trading LLC</td><td>Gulf Enterprises</td><td class="font-medium">52,500</td><td><span class="status-pill status-paid">Paid</span></td><td>15 Mar 2026</td></tr>
-              <tr><td class="font-medium">INV-2026-0848</td><td>Acme Trading LLC</td><td>Desert Logistics</td><td class="font-medium">18,750</td><td><span class="status-pill status-clicked">Clicked</span></td><td>15 Mar 2026</td></tr>
-              <tr><td class="font-medium">INV-2026-0851</td><td>Nova Tech FZE</td><td>Pearl Trading Co.</td><td class="font-medium">125,000</td><td><span class="status-pill status-sent">Sent</span></td><td>14 Mar 2026</td></tr>
-              <tr><td class="font-medium">INV-2026-0839</td><td>Crescent Services</td><td>Oasis Group</td><td class="font-medium">8,400</td><td><span class="status-pill status-paid">Paid</span></td><td>13 Mar 2026</td></tr>
-              <tr><td class="font-medium">INV-2026-0822</td><td>Falcon Consulting</td><td>Marina Holdings</td><td class="font-medium">67,200</td><td><span class="status-pill status-expired">Expired</span></td><td>10 Mar 2026</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <h3 class="font-heading font-bold text-lg text-gray-900 mb-4">What the Seller Sees on ClearTax</h3>
-      <div class="dashboard-mockup mb-6">
         <div class="bg-gray-50 px-5 py-3 border-b border-gray-200 flex items-center gap-2">
           <div class="w-6 h-6 bg-primary rounded flex items-center justify-center"><span class="text-white" style="font-size:7px; font-weight:800;">C</span></div>
           <span class="text-sm font-bold text-gray-800">Seller Portal -- Invoices &amp; Financing</span>
@@ -636,6 +628,26 @@
               <tr><td class="font-medium">INV-0851</td><td>Pearl Trading Co.</td><td class="font-medium">125,000</td><td><span class="status-pill status-sent">Sent</span></td><td><span class="status-pill status-available">Available</span></td><td class="text-xs text-gray-600">90 days, 2.5%</td><td><span class="text-xs text-mashreq font-semibold cursor-pointer">Apply</span></td></tr>
               <tr><td class="font-medium">INV-0852</td><td>Oasis Group</td><td class="font-medium">34,000</td><td><span class="status-pill status-pending">Pending</span></td><td><span class="status-pill status-available">Available</span></td><td class="text-xs text-gray-600">60 days, 2.0%</td><td><span class="text-xs text-mashreq font-semibold cursor-pointer">Apply</span></td></tr>
               <tr><td class="font-medium">INV-0855</td><td>Marina Holdings</td><td class="font-medium">67,200</td><td><span class="status-pill status-paid">Paid</span></td><td class="text-gray-400 text-xs">--</td><td class="text-gray-400 text-xs">--</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3 class="font-heading font-bold text-lg text-gray-900 mb-4">What Visa and Mashreq See</h3>
+      <div class="dashboard-mockup mb-6">
+        <div class="bg-gray-50 px-5 py-3 border-b border-gray-200 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2"><div class="w-6 h-6 bg-visa rounded flex items-center justify-center"><span class="text-white" style="font-size:7px; font-weight:800;">V</span></div><span class="text-sm font-bold text-gray-800">Invoice Payment Link Dashboard</span></div>
+          <div class="flex gap-4 text-xs"><span class="text-gray-500"><strong class="text-gray-800">247</strong> invoices with links</span><span class="text-gray-500"><strong class="text-positive">68%</strong> click rate</span><span class="text-gray-500"><strong class="text-visa">AED 12.4M</strong> volume</span></div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="dashboard-table">
+            <thead><tr><th>Invoice #</th><th>Seller</th><th>Buyer</th><th>Amount (AED)</th><th>Link Status</th><th>Financing</th><th>Date Sent</th></tr></thead>
+            <tbody>
+              <tr><td class="font-medium">INV-2026-0847</td><td>Acme Trading LLC</td><td>Gulf Enterprises</td><td class="font-medium">52,500</td><td><span class="status-pill status-paid">Paid</span></td><td class="text-gray-400 text-xs">--</td><td>15 Mar 2026</td></tr>
+              <tr><td class="font-medium">INV-2026-0848</td><td>Acme Trading LLC</td><td>Desert Logistics</td><td class="font-medium">18,750</td><td><span class="status-pill status-clicked">Clicked</span></td><td><span class="status-pill status-available">Eligible</span></td><td>15 Mar 2026</td></tr>
+              <tr><td class="font-medium">INV-2026-0851</td><td>Nova Tech FZE</td><td>Pearl Trading Co.</td><td class="font-medium">125,000</td><td><span class="status-pill status-sent">Sent</span></td><td><span class="status-pill status-pending">Requested</span></td><td>14 Mar 2026</td></tr>
+              <tr><td class="font-medium">INV-2026-0839</td><td>Crescent Services</td><td>Oasis Group</td><td class="font-medium">8,400</td><td><span class="status-pill status-paid">Paid</span></td><td><span class="status-pill status-paid">Financed</span></td><td>13 Mar 2026</td></tr>
+              <tr><td class="font-medium">INV-2026-0822</td><td>Falcon Consulting</td><td>Marina Holdings</td><td class="font-medium">67,200</td><td><span class="status-pill status-expired">Expired</span></td><td><span class="status-pill status-expired">Denied</span></td><td>10 Mar 2026</td></tr>
             </tbody>
           </table>
         </div>
@@ -881,6 +893,131 @@
         </div></div>
       </div>
       <div class="flex items-center gap-2 text-xs text-gray-400 mt-2 lg:hidden"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg><span>Scroll to see all screens</span></div>
+
+      <!-- e-Invoice XML -->
+      <h3 class="font-heading font-bold text-lg text-gray-900 mt-12 mb-2">The e-Invoice XML (PINT AE)</h3>
+      <p class="text-sm text-gray-500 mb-4">This is a real UAE e-Invoice in UBL 2.1 format (PINT AE profile). The highlighted sections show where payment means, payment terms, and due date live inside the XML -- the exact fields Clear uses to embed Visa payment links.</p>
+      <div class="xml-viewer">
+        <div class="xml-viewer-header">
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          <span class="text-xs font-semibold text-gray-500">PINT AE Standard Invoice</span>
+          <span class="text-[10px] text-gray-400 ml-auto">UBL 2.1 &middot; urn:peppol:pint:billing-1@ae-1</span>
+        </div>
+        <div class="xml-code"><span class="xc">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="xt">&lt;Invoice</span> <span class="xa">xmlns</span>=<span class="xv">"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"</span> ...&gt;
+
+  <span class="xt">&lt;cbc:CustomizationID&gt;</span>urn:peppol:pint:billing-1@ae-1<span class="xt">&lt;/cbc:CustomizationID&gt;</span>
+  <span class="xt">&lt;cbc:ProfileID&gt;</span>urn:peppol:bis:billing<span class="xt">&lt;/cbc:ProfileID&gt;</span>
+  <span class="xt">&lt;cbc:ID&gt;</span>INV-001/2025<span class="xt">&lt;/cbc:ID&gt;</span>
+  <span class="xt">&lt;cbc:IssueDate&gt;</span>2025-01-30<span class="xt">&lt;/cbc:IssueDate&gt;</span>
+<span class="xml-hl">  <span class="xt">&lt;cbc:DueDate&gt;</span>2025-02-13<span class="xt">&lt;/cbc:DueDate&gt;</span>  <span class="xml-hl-label">PAYMENT DUE DATE</span></span>  <span class="xt">&lt;cbc:InvoiceTypeCode&gt;</span>380<span class="xt">&lt;/cbc:InvoiceTypeCode&gt;</span>
+  <span class="xt">&lt;cbc:DocumentCurrencyCode&gt;</span>AED<span class="xt">&lt;/cbc:DocumentCurrencyCode&gt;</span>
+
+  <span class="xc">&lt;!-- Document References --&gt;</span>
+  <span class="xt">&lt;cac:AdditionalDocumentReference&gt;</span>
+    <span class="xt">&lt;cbc:ID&gt;</span>DR-INV-001<span class="xt">&lt;/cbc:ID&gt;</span>
+    <span class="xt">&lt;cac:Attachment&gt;&lt;cac:ExternalReference&gt;</span>
+      <span class="xt">&lt;cbc:URI&gt;</span>https://www.site.ae/invoices.pdf<span class="xt">&lt;/cbc:URI&gt;</span>
+    <span class="xt">&lt;/cac:ExternalReference&gt;&lt;/cac:Attachment&gt;</span>
+  <span class="xt">&lt;/cac:AdditionalDocumentReference&gt;</span>
+<span class="xml-hl-block">  <span class="xc">&lt;!-- Visa Payment Link (IBG-24 / IBT-124) --&gt;</span>  <span class="xml-hl-label">PAYMENT LINK</span>
+  <span class="xt">&lt;cac:AdditionalDocumentReference&gt;</span>
+    <span class="xt">&lt;cbc:ID&gt;</span>PAY-LINK-001<span class="xt">&lt;/cbc:ID&gt;</span>
+    <span class="xt">&lt;cbc:DocumentDescription&gt;</span>Visa Payment Link<span class="xt">&lt;/cbc:DocumentDescription&gt;</span>
+    <span class="xt">&lt;cac:Attachment&gt;&lt;cac:ExternalReference&gt;</span>
+      <span class="xt">&lt;cbc:URI&gt;</span>https://pay.visa.com/ae/inv/INV-001-2025<span class="xt">&lt;/cbc:URI&gt;</span>
+    <span class="xt">&lt;/cac:ExternalReference&gt;&lt;/cac:Attachment&gt;</span>
+  <span class="xt">&lt;/cac:AdditionalDocumentReference&gt;</span></span>
+  <span class="xc">&lt;!-- Supplier Party --&gt;</span>
+  <span class="xt">&lt;cac:AccountingSupplierParty&gt;</span>
+    <span class="xt">&lt;cac:Party&gt;</span>
+      <span class="xt">&lt;cbc:EndpointID</span> <span class="xa">schemeID</span>=<span class="xv">"0235"</span>&gt;112345678900003<span class="xt">&lt;/cbc:EndpointID&gt;</span>
+      <span class="xt">&lt;cac:PartyName&gt;&lt;cbc:Name&gt;</span>Supplier Trade Name<span class="xt">&lt;/cbc:Name&gt;&lt;/cac:PartyName&gt;</span>
+      <span class="xc">&lt;!-- ... Address, Tax, Legal Entity, Contact ... --&gt;</span>
+    <span class="xt">&lt;/cac:Party&gt;</span>
+  <span class="xt">&lt;/cac:AccountingSupplierParty&gt;</span>
+
+  <span class="xc">&lt;!-- Buyer Party --&gt;</span>
+  <span class="xt">&lt;cac:AccountingCustomerParty&gt;</span>
+    <span class="xt">&lt;cac:Party&gt;</span>
+      <span class="xt">&lt;cbc:EndpointID</span> <span class="xa">schemeID</span>=<span class="xv">"0235"</span>&gt;112345679000003<span class="xt">&lt;/cbc:EndpointID&gt;</span>
+      <span class="xt">&lt;cac:PartyName&gt;&lt;cbc:Name&gt;</span>Buyer Trade Name<span class="xt">&lt;/cbc:Name&gt;&lt;/cac:PartyName&gt;</span>
+      <span class="xc">&lt;!-- ... Address, Tax, Legal Entity, Contact ... --&gt;</span>
+    <span class="xt">&lt;/cac:Party&gt;</span>
+  <span class="xt">&lt;/cac:AccountingCustomerParty&gt;</span>
+
+  <span class="xc">&lt;!-- Delivery --&gt;</span>
+  <span class="xt">&lt;cac:Delivery&gt;</span>
+    <span class="xt">&lt;cbc:ActualDeliveryDate&gt;</span>2025-01-30<span class="xt">&lt;/cbc:ActualDeliveryDate&gt;</span>
+    <span class="xc">&lt;!-- ... Location, Party ... --&gt;</span>
+  <span class="xt">&lt;/cac:Delivery&gt;</span>
+
+<span class="xml-hl-block">  <span class="xc">&lt;!-- IBG-16: Payment Means --&gt;</span>  <span class="xml-hl-label">PAYMENT MEANS</span>
+  <span class="xt">&lt;cac:PaymentMeans&gt;</span>
+    <span class="xt">&lt;cbc:PaymentMeansCode</span> <span class="xa">name</span>=<span class="xv">"Debit Card"</span>&gt;55<span class="xt">&lt;/cbc:PaymentMeansCode&gt;</span>
+    <span class="xt">&lt;cac:CardAccount&gt;</span>
+      <span class="xt">&lt;cbc:PrimaryAccountNumberID&gt;</span>XXXXXXXXXXXX1234<span class="xt">&lt;/cbc:PrimaryAccountNumberID&gt;</span>
+      <span class="xt">&lt;cbc:NetworkID&gt;</span>VISA<span class="xt">&lt;/cbc:NetworkID&gt;</span>
+      <span class="xt">&lt;cbc:HolderName&gt;</span>Card Holder Name<span class="xt">&lt;/cbc:HolderName&gt;</span>
+    <span class="xt">&lt;/cac:CardAccount&gt;</span>
+    <span class="xt">&lt;cac:PayeeFinancialAccount&gt;</span>
+      <span class="xt">&lt;cbc:ID</span> <span class="xa">schemeID</span>=<span class="xv">"IBAN"</span>&gt;AE0000000001<span class="xt">&lt;/cbc:ID&gt;</span>
+      <span class="xt">&lt;cbc:Name&gt;</span>current account<span class="xt">&lt;/cbc:Name&gt;</span>
+      <span class="xt">&lt;cac:FinancialInstitutionBranch&gt;</span>
+        <span class="xt">&lt;cbc:ID&gt;</span>236000<span class="xt">&lt;/cbc:ID&gt;</span>
+      <span class="xt">&lt;/cac:FinancialInstitutionBranch&gt;</span>
+    <span class="xt">&lt;/cac:PayeeFinancialAccount&gt;</span>
+    <span class="xt">&lt;cac:PaymentMandate&gt;</span>
+      <span class="xt">&lt;cbc:ID&gt;</span>2025-01-30<span class="xt">&lt;/cbc:ID&gt;</span>
+    <span class="xt">&lt;/cac:PaymentMandate&gt;</span>
+  <span class="xt">&lt;/cac:PaymentMeans&gt;</span></span>
+<span class="xml-hl-block">  <span class="xc">&lt;!-- IBG-33: Payment Terms --&gt;</span>  <span class="xml-hl-label">PAYMENT TERMS</span>
+  <span class="xt">&lt;cac:PaymentTerms&gt;</span>
+    <span class="xt">&lt;cbc:Note&gt;</span>15 days<span class="xt">&lt;/cbc:Note&gt;</span>
+  <span class="xt">&lt;/cac:PaymentTerms&gt;</span></span>
+  <span class="xc">&lt;!-- Allowances &amp; Charges --&gt;</span>
+  <span class="xt">&lt;cac:AllowanceCharge&gt;</span>
+    <span class="xt">&lt;cbc:ChargeIndicator&gt;</span>false<span class="xt">&lt;/cbc:ChargeIndicator&gt;</span>
+    <span class="xt">&lt;cbc:AllowanceChargeReason&gt;</span>Discount<span class="xt">&lt;/cbc:AllowanceChargeReason&gt;</span>
+    <span class="xt">&lt;cbc:Amount</span> <span class="xa">currencyID</span>=<span class="xv">"AED"</span>&gt;273.75<span class="xt">&lt;/cbc:Amount&gt;</span>
+    <span class="xc">&lt;!-- ... Tax Category ... --&gt;</span>
+  <span class="xt">&lt;/cac:AllowanceCharge&gt;</span>
+
+  <span class="xc">&lt;!-- Tax Totals --&gt;</span>
+  <span class="xt">&lt;cac:TaxTotal&gt;</span>
+    <span class="xt">&lt;cbc:TaxAmount</span> <span class="xa">currencyID</span>=<span class="xv">"AED"</span>&gt;115.70<span class="xt">&lt;/cbc:TaxAmount&gt;</span>
+    <span class="xc">&lt;!-- ... Tax Subtotals (S 5%, E 0%, O, AE 5%, Z 0%) ... --&gt;</span>
+  <span class="xt">&lt;/cac:TaxTotal&gt;</span>
+
+  <span class="xc">&lt;!-- Monetary Totals --&gt;</span>
+  <span class="xt">&lt;cac:LegalMonetaryTotal&gt;</span>
+    <span class="xt">&lt;cbc:LineExtensionAmount</span> <span class="xa">currencyID</span>=<span class="xv">"AED"</span>&gt;18307.50<span class="xt">&lt;/cbc:LineExtensionAmount&gt;</span>
+    <span class="xt">&lt;cbc:TaxExclusiveAmount</span> <span class="xa">currencyID</span>=<span class="xv">"AED"</span>&gt;15661.50<span class="xt">&lt;/cbc:TaxExclusiveAmount&gt;</span>
+    <span class="xt">&lt;cbc:TaxInclusiveAmount</span> <span class="xa">currencyID</span>=<span class="xv">"AED"</span>&gt;15777.20<span class="xt">&lt;/cbc:TaxInclusiveAmount&gt;</span>
+    <span class="xt">&lt;cbc:PayableAmount</span> <span class="xa">currencyID</span>=<span class="xv">"AED"</span>&gt;5777.50<span class="xt">&lt;/cbc:PayableAmount&gt;</span>
+  <span class="xt">&lt;/cac:LegalMonetaryTotal&gt;</span>
+
+  <span class="xc">&lt;!-- Invoice Line Items (5 lines) --&gt;</span>
+  <span class="xt">&lt;cac:InvoiceLine&gt;</span>
+    <span class="xt">&lt;cbc:ID&gt;</span>1<span class="xt">&lt;/cbc:ID&gt;</span>
+    <span class="xt">&lt;cbc:InvoicedQuantity</span> <span class="xa">unitCode</span>=<span class="xv">"H87"</span>&gt;5<span class="xt">&lt;/cbc:InvoicedQuantity&gt;</span>
+    <span class="xt">&lt;cbc:LineExtensionAmount</span> <span class="xa">currencyID</span>=<span class="xv">"AED"</span>&gt;4960<span class="xt">&lt;/cbc:LineExtensionAmount&gt;</span>
+    <span class="xt">&lt;cac:Item&gt;</span>
+      <span class="xt">&lt;cbc:Name&gt;</span>Item Name<span class="xt">&lt;/cbc:Name&gt;</span>
+      <span class="xc">&lt;!-- ... Classification, Tax Category ... --&gt;</span>
+    <span class="xt">&lt;/cac:Item&gt;</span>
+    <span class="xt">&lt;cac:Price&gt;</span>
+      <span class="xt">&lt;cbc:PriceAmount</span> <span class="xa">currencyID</span>=<span class="xv">"AED"</span>&gt;1000<span class="xt">&lt;/cbc:PriceAmount&gt;</span>
+    <span class="xt">&lt;/cac:Price&gt;</span>
+  <span class="xt">&lt;/cac:InvoiceLine&gt;</span>
+  <span class="xc">&lt;!-- ... Lines 2-5 ... --&gt;</span>
+
+<span class="xt">&lt;/Invoice&gt;</span></div>
+      </div>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <div class="flex items-center gap-2 text-xs text-gray-500"><span class="inline-block w-3 h-3 rounded-sm" style="background: rgba(247,182,0,0.15); border-left: 2px solid #F7B600;"></span> Highlighted = payment-related fields Clear uses to embed Visa payment links into every e-Invoice</div>
+        <div class="text-xs text-gray-400 mt-1">Payment link uses <strong class="text-gray-500">AdditionalDocumentReference</strong> (IBG-24 / IBT-124) -- the standard UBL 2.1 mechanism for external document URIs, fully supported in PINT AE.</div>
+      </div>
     </section>
 
     <!-- TAB 5: YOUR RETURNS -->
@@ -1058,7 +1195,7 @@
       'sell-peppol': { title:'Peppol Delivery to Buyer ASP', subtitle:'Every invoice delivered = a Visa payment link delivered', parties:['Clear','Buyer ASP'], detail:'The e-Invoice -- now carrying a Visa payment link -- is dispatched to the buyer\'s ASP via Peppol AS4 protocol. From Visa\'s perspective, this is distribution: every invoice delivered is a payment link delivered. Clear handles the Peppol network delivery with signed SBDH envelopes and full audit trail.', dataFlow:'Clear \u2192 Peppol SMP \u2192 Buyer ASP (AS4). Buyer ASP \u2192 Clear: delivery receipt / MDN.' },
       'sell-fta': { title:'FTA Government Reporting', subtitle:'Government validation strengthens Mashreq\'s financing data', parties:['Clear','FTA'], detail:'In parallel, invoice data is submitted to FTA for CTC (Continuous Transaction Controls) compliance. This government reporting step legitimizes the invoice data that Mashreq uses for financing decisions -- FTA-validated invoices carry higher confidence for underwriting. Clear handles the FTA API submission; FTA returns a clearance UUID.', dataFlow:'Clear \u2192 FTA: CTC submission via FTA API. FTA \u2192 Clear: Clearance status / UUID.' },
       'sell-mashreq': { title:'Mashreq Financing Submission', subtitle:'Pre-validated invoices feed Mashreq\'s lending pipeline', parties:['Clear','Mashreq'], detail:'Mashreq receives the validated, FTA-compliant invoice data for financing assessment. Because the invoice has passed schema validation, business rules, and duplicate detection, Mashreq can underwrite with high confidence and reduced risk. The seller can access early payment while the buyer pays on standard terms. Clear submits the data package via Mashreq\'s Open Banking API.', dataFlow:'Clear \u2192 Mashreq: Validated invoice + seller profile + dup check. Mashreq \u2192 Clear: Eligibility + terms.' },
-      'sell-email': { title:'Email with Payment Link', subtitle:'Direct delivery with Visa payment options', parties:['Clear','Buyer'], detail:'In addition to Peppol delivery, Clear sends a rich email to the buyer containing the invoice summary and prominent Visa payment options -- a click-to-pay link and a scannable QR code. This ensures the buyer receives the payment link even if their system hasn\'t ingested the Peppol message yet. For SMEs without sophisticated ERP systems, email is often the primary payment trigger.', dataFlow:'Clear \u2192 Buyer: Email with invoice summary + embedded Visa payment link + QR code. Includes payment due date and credit terms.' },
+      'sell-email': { title:'Email PDF Invoice with Payment Link', subtitle:'PDF invoice delivered directly with Visa payment options', parties:['Clear','Buyer'], detail:'In addition to Peppol delivery, Clear sends the buyer an email with a PDF invoice attachment. The PDF contains the full invoice details along with an embedded Visa QR code and a click-to-pay link -- making it easy for the buyer to pay directly from the document. This ensures the buyer receives the payment link even if their system hasn\'t ingested the Peppol message yet. For SMEs without sophisticated ERP systems, the PDF email is often the primary payment trigger.', dataFlow:'Clear \u2192 Buyer: Email with PDF invoice attachment (QR code + Visa payment link embedded in PDF). Includes payment due date and credit terms.' },
       'sell-remind': { title:'Payment Reminders', subtitle:'Automated follow-ups based on credit terms', parties:['Clear','Buyer'], detail:'Clear sends automated payment reminders to the buyer based on the invoice\'s payment due date and credit terms. Reminders escalate: a gentle nudge 7 days before due, a reminder on the due date, and follow-ups for overdue invoices. Each reminder includes the Visa payment link for one-click payment. Configurable frequency and escalation rules per seller.', dataFlow:'Clear \u2192 Buyer: Scheduled email reminders with Visa payment link. Clear \u2192 Seller: Reminder status updates (sent, opened, clicked).' },
       'sell-callback': { title:'Payment Callback', subtitle:'Real-time confirmation closes the loop', parties:['Visa PayFac','Clear','Seller'], detail:'When the buyer completes payment via Visa rails, Visa sends a real-time webhook to Clear with the transaction confirmation -- amount, transaction ID, timestamp, and settlement details. Clear instantly updates the invoice status to "Paid" and notifies the seller\'s ERP. The loop is fully closed: invoice created \u2192 payment link sent \u2192 payment received \u2192 seller notified, all tracked end-to-end.', dataFlow:'Visa \u2192 Clear: Payment webhook (txn ID, amount, status, timestamp). Clear \u2192 Seller ERP: Real-time status update + settlement notification.' },
       'buy-receive': { title:'e-Invoice Received via Peppol', subtitle:'A payment-enabled invoice reaches the buyer', parties:['Buyer ASP','Clear'], detail:'The inbound e-Invoice arrives from the seller\'s ASP on the Peppol network, carrying a Visa payment link. From Visa\'s perspective, this is the moment a payment-enabled invoice reaches the buyer -- every receipt is a potential Visa transaction. Clear, acting as the buyer\'s ASP, receives the signed SBDH envelope.', dataFlow:'Seller ASP \u2192 Peppol \u2192 Clear (Buyer ASP): SBDH + PINT AE XML + payment link.' },
