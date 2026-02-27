@@ -1,0 +1,44 @@
+    <!-- TAB 1: THE OPPORTUNITY -->
+    <section id="opportunity" class="tab-section visible active-section">
+      <div class="mb-8">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-3">{{ tab1.headline }}</h1>
+        <p class="text-gray-600 max-w-2xl text-base leading-relaxed">{{ tab1.subheadline }}</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+        {% for card in tab1.statCards %}
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover text-center"><p class="font-heading text-3xl font-bold text-visa mb-2">{{ card.value }}</p><p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">{{ card.label }}</p><p class="text-sm text-gray-600">{{ card.description }}</p></div>
+        {% endfor %}
+      </div>
+      <div class="bg-white rounded-xl shadow-sm p-8 mb-10">
+        <h3 class="font-heading font-bold text-xl text-gray-900 mb-6 text-center">The Mandate Solves Invoicing. Not Payments.</h3>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h4 class="font-heading font-semibold text-positive mb-3 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="#16A34A" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>What e-Invoicing Solves</h4>
+            <ul class="space-y-2">
+              {% for item in tab1.whatItSolves %}
+              <li class="flex items-start gap-2"><svg class="w-4 h-4 text-positive mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-700"><strong>{{ item.bold }}</strong> {{ item.text }}</span></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-heading font-semibold text-danger mb-3 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="#DC2626" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>What It Doesn't Solve</h4>
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+              <p class="text-sm text-gray-800 font-medium mb-2">{{ tab1.whatItDoesntSolve.headline }}</p>
+              <p class="text-sm text-gray-600">{{ tab1.whatItDoesntSolve.body }}</p>
+              <p class="text-sm text-warning font-semibold mt-3">{{ tab1.whatItDoesntSolve.callout }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-50 border border-blue-200 rounded-xl p-6 mb-10 shadow-sm">
+        <p class="text-lg text-gray-900 leading-relaxed text-center font-medium">{{ tab1.quoteBanner }}</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        {% for card in tab1.partnerCards %}
+        <div class="bg-white rounded-xl shadow-sm p-6 card-hover border-l-4 border-{{ card.colorClass }}">
+          <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 bg-{{ card.colorClass }} rounded-lg flex items-center justify-center"><span class="text-white text-sm font-bold font-heading">{{ card.partnerInitial }}</span></div><h3 class="font-heading font-bold text-lg text-{{ card.colorClass }}">{{ card.headline }}</h3></div>
+          <p class="text-sm text-gray-700 leading-relaxed">{{ card.body }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>

@@ -1,0 +1,327 @@
+    <section id="sell-flow" class="tab-section">
+      <div class="mb-5">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Seller Journey -- How Every Invoice Becomes a {{ navPartner1Name }} Transaction</h1>
+        <p class="text-gray-600 max-w-2xl text-base leading-relaxed">Follow an invoice from creation to delivery. At every gold-highlighted step, {{ navPartner1Name }} captures payment volume and {{ parties[5].label if parties | length > 5 else 'Partner' }} gains financing data. Click any node for details.</p>
+      </div>
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <div class="flex flex-wrap gap-1.5">
+          {% for party in parties %}
+          <span class="party-badge {{ party.bgClass }} {{ party.textClass }}">{{ party.label }}</span>
+          {% endfor %}
+        </div>
+        <div class="flex items-center gap-1 bg-white rounded-lg p-1 shadow-sm border border-gray-100">
+          <button class="layer-toggle active-toggle" data-flow="sell" data-layer="all">Full Flow</button>
+          <button class="layer-toggle" data-flow="sell" data-layer="compliance"><span class="inline-block w-2 h-2 rounded-full bg-primary mr-1"></span>Compliance</button>
+          <button class="layer-toggle" data-flow="sell" data-layer="payment"><span class="inline-block w-2 h-2 rounded-full bg-payfac mr-1"></span>Payment</button>
+        </div>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="scroll-hint items-center gap-2 text-xs text-gray-400 mb-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <span>Scroll to see full flow</span>
+      </div>
+
+      <div class="flow-diagram bg-white rounded-xl shadow-sm" id="sellFlowDiagram">
+        <div class="flow-scroll p-4 sm:p-6">
+          <div class="flow-h">
+
+            <!-- ===== SELLER ENVIRONMENT ZONE ===== -->
+            <div class="env-zone env-zone-seller">
+              <span class="env-zone-label">Seller Environment</span>
+              <div class="flow-node node-w" data-layer="{{ sellerFlowNodes['sell-erp'].layer }}" data-node-id="sell-erp" onclick="showDetail('sell','sell-erp')">
+                <div class="flex flex-wrap gap-1 mb-1.5">
+                  {% for party in sellerFlowNodes['sell-erp'].parties %}
+                  <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                  {% endfor %}
+                </div>
+                <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-erp'].title }}</h4>
+                <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-erp'].subtitle }}</p>
+              </div>
+            </div>
+
+            <svg width="36" height="20" viewBox="0 0 36 20" class="shrink-0 mx-1.5"><line x1="0" y1="10" x2="28" y2="10" stroke="#CBD5E1" stroke-width="2"/><polygon points="28,5 36,10 28,15" fill="#CBD5E1"/></svg>
+
+            <!-- ===== CLEAR PLATFORM ZONE ===== -->
+            <div class="env-zone env-zone-clear">
+              <span class="env-zone-label">Clear Platform</span>
+
+              <div class="flow-node node-w" data-layer="{{ sellerFlowNodes['sell-transform'].layer }}" data-node-id="sell-transform" onclick="showDetail('sell','sell-transform')">
+                <div class="flex flex-wrap gap-1 mb-1.5">
+                  {% for party in sellerFlowNodes['sell-transform'].parties %}
+                  <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                  {% endfor %}
+                </div>
+                <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-transform'].title }}</h4>
+                <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-transform'].subtitle }}</p>
+              </div>
+
+              <svg width="36" height="20" viewBox="0 0 36 20" class="shrink-0 mx-1.5"><line x1="0" y1="10" x2="28" y2="10" stroke="#CBD5E1" stroke-width="2"/><polygon points="28,5 36,10 28,15" fill="#CBD5E1"/></svg>
+
+              <div class="flow-node node-w-lg" data-layer="{{ sellerFlowNodes['sell-validate'].layer }}" data-node-id="sell-validate" onclick="showDetail('sell','sell-validate')">
+                <div class="flex flex-wrap gap-1 mb-1.5">
+                  {% for party in sellerFlowNodes['sell-validate'].parties %}
+                  <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                  {% endfor %}
+                </div>
+                <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-validate'].title }}</h4>
+                <div class="flex flex-wrap items-center gap-1 mt-1.5">
+                  {% for step in sellerValidationSteps %}
+                  <span class="validation-step">{{ step.label }}</span>{% if not loop.last %}<span class="validation-arrow">&rarr;</span>{% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+
+              <svg width="36" height="20" viewBox="0 0 36 20" class="shrink-0 mx-1.5"><line x1="0" y1="10" x2="28" y2="10" stroke="#CBD5E1" stroke-width="2"/><polygon points="28,5 36,10 28,15" fill="#CBD5E1"/></svg>
+
+              <!-- PAYMENT ZONE -->
+              <div class="payment-zone flex items-center gap-0 px-3 py-8 pt-9">
+                <span class="payment-zone-label">Payment Layer -- {{ navPartner1Name }} + Clear</span>
+                <div class="flex flex-col items-center justify-between shrink-0" style="height:320px;">
+                  <div class="flow-node node-w-sm" data-layer="{{ sellerFlowNodes['sell-proceed'].layer }}" data-node-id="sell-proceed" onclick="showDetail('sell','sell-proceed')" style="background: linear-gradient(135deg, #F0FDF4, #DCFCE7); border-color: #86EFAC;">
+                    <div class="flex gap-1 mb-1">
+                      {% for party in sellerFlowNodes['sell-proceed'].parties %}
+                      <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                      {% endfor %}
+                    </div>
+                    <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-proceed'].title }}</h4>
+                    <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-proceed'].subtitle }}</p>
+                  </div>
+                  <div data-node-id="sell-decision" onclick="showDetail('sell','sell-decision')" style="margin: 8px 0;">
+                    <div class="diamond-shape"><div class="diamond-content"><p class="font-heading font-bold" style="font-size:0.6rem; color:#92400E; line-height:1.2;">{{ sellerFlowNodes['sell-decision'].title if sellerFlowNodes['sell-decision'] is defined else 'Has Pay Link?' }}</p></div></div>
+                  </div>
+                  <div class="flow-node node-w-sm" data-layer="{{ sellerFlowNodes['sell-visa-req'].layer }}" data-node-id="sell-visa-req" onclick="showDetail('sell','sell-visa-req')">
+                    <div class="flex gap-1 mb-1">
+                      {% for party in sellerFlowNodes['sell-visa-req'].parties %}
+                      <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                      {% endfor %}
+                    </div>
+                    <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-visa-req'].title }}</h4>
+                    <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-visa-req'].subtitle }}</p>
+                  </div>
+                </div>
+                <svg viewBox="0 0 70 320" class="shrink-0" style="width:56px; height:320px;">
+                  <text x="8" y="26" fill="#16A34A" font-size="9" font-weight="700" font-family="Syne, sans-serif">YES</text>
+                  <path d="M 0 36 C 35 36, 35 160, 66 160" stroke="#16A34A" stroke-width="2" fill="none"/>
+                  <text x="10" y="298" fill="#B45309" font-size="9" font-weight="700" font-family="Syne, sans-serif">NO</text>
+                  <path d="M 0 286 C 35 286, 35 160, 66 160" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+                  <polygon points="63,156 70,160 63,164" fill="#F7B600"/>
+                </svg>
+                <div class="flow-node node-w shrink-0" data-layer="{{ sellerFlowNodes['sell-ready'].layer }}" data-node-id="sell-ready" onclick="showDetail('sell','sell-ready')">
+                  <div class="flex flex-wrap gap-1 mb-1.5">
+                    {% for party in sellerFlowNodes['sell-ready'].parties %}
+                    <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                    {% endfor %}
+                  </div>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-ready'].title }}</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-ready'].subtitle }}</p>
+                </div>
+              </div>
+            </div>
+            <!-- END CLEAR ZONE -->
+
+            <!-- Fan-out SVG (4-way) -->
+            <svg viewBox="0 0 56 420" class="shrink-0 mx-1" style="width:44px; height:420px;">
+              <text x="0" y="14" fill="#6B7280" font-size="10" font-weight="700" font-family="Syne, sans-serif">DISPATCH</text>
+              <!-- To Peppol (top) -->
+              <path d="M 0 210 C 28 210, 28 50, 52 50" stroke="#CBD5E1" stroke-width="2" fill="none"/>
+              <polygon points="49,46 56,50 49,54" fill="#CBD5E1"/>
+              <!-- To Email (upper-mid) -->
+              <path d="M 0 210 C 28 210, 28 155, 52 155" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+              <polygon points="49,151 56,155 49,159" fill="#F7B600"/>
+              <!-- To FTA (lower-mid) -->
+              <path d="M 0 210 C 28 210, 28 265, 52 265" stroke="#CBD5E1" stroke-width="2" fill="none"/>
+              <polygon points="49,261 56,265 49,269" fill="#CBD5E1"/>
+              <!-- To Mashreq (bottom) -->
+              <path d="M 0 210 C 28 210, 28 370, 52 370" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+              <polygon points="49,366 56,370 49,374" fill="#F7B600"/>
+            </svg>
+
+            <!-- ===== DELIVERY ZONE ===== -->
+            <div class="env-zone env-zone-delivery">
+              <span class="env-zone-label">Delivery</span>
+
+              <!-- 4 parallel outputs -->
+              <div class="flex flex-col justify-between shrink-0" style="height:420px;">
+                <div class="flow-node node-w" data-layer="{{ sellerFlowNodes['sell-peppol'].layer }}" data-node-id="sell-peppol" onclick="showDetail('sell','sell-peppol')">
+                  <div class="flex gap-1 mb-1">
+                    {% for party in sellerFlowNodes['sell-peppol'].parties %}
+                    <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                    {% endfor %}
+                  </div>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-peppol'].title }}</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-peppol'].subtitle }}</p>
+                </div>
+                <div class="flow-node node-w" data-layer="{{ sellerFlowNodes['sell-email'].layer }}" data-node-id="sell-email" onclick="showDetail('sell','sell-email')">
+                  <div class="flex gap-1 mb-1">
+                    {% for party in sellerFlowNodes['sell-email'].parties %}
+                    <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                    {% endfor %}
+                  </div>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-email'].title }}</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-email'].subtitle }}</p>
+                </div>
+                <div class="flow-node node-w" data-layer="{{ sellerFlowNodes['sell-fta'].layer }}" data-node-id="sell-fta" onclick="showDetail('sell','sell-fta')">
+                  <div class="flex gap-1 mb-1">
+                    {% for party in sellerFlowNodes['sell-fta'].parties %}
+                    <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                    {% endfor %}
+                  </div>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-fta'].title }}</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-fta'].subtitle }}</p>
+                </div>
+                <div class="flow-node node-w" data-layer="{{ sellerFlowNodes['sell-mashreq'].layer }}" data-node-id="sell-mashreq" onclick="showDetail('sell','sell-mashreq')">
+                  <div class="flex gap-1 mb-1">
+                    {% for party in sellerFlowNodes['sell-mashreq'].parties %}
+                    <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                    {% endfor %}
+                  </div>
+                  <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-mashreq'].title }}</h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-mashreq'].subtitle }}</p>
+                </div>
+              </div>
+
+              <!-- Merge SVG (4-way) -->
+              <svg viewBox="0 0 56 420" class="shrink-0" style="width:44px; height:420px;">
+                <path d="M 0 50 C 28 50, 28 210, 52 210" stroke="#CBD5E1" stroke-width="2" fill="none"/>
+                <path d="M 0 155 C 28 155, 28 210, 52 210" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+                <path d="M 0 265 C 28 265, 28 210, 52 210" stroke="#CBD5E1" stroke-width="2" fill="none"/>
+                <path d="M 0 370 C 28 370, 28 210, 52 210" stroke="#F7B600" stroke-width="2" fill="none" class="gold-dash"/>
+                <polygon points="49,206 56,210 49,214" fill="#CBD5E1"/>
+              </svg>
+
+              <!-- Reminders -->
+              <div class="flow-node node-w" data-layer="{{ sellerFlowNodes['sell-remind'].layer }}" data-node-id="sell-remind" onclick="showDetail('sell','sell-remind')">
+                <div class="flex gap-1 mb-1">
+                  {% for party in sellerFlowNodes['sell-remind'].parties %}
+                  <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                  {% endfor %}
+                </div>
+                <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-remind'].title }}</h4>
+                <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-remind'].subtitle }}</p>
+              </div>
+
+              <svg width="36" height="20" viewBox="0 0 36 20" class="shrink-0 mx-1.5"><line x1="0" y1="10" x2="28" y2="10" stroke="#F7B600" stroke-width="2" class="gold-dash"/><polygon points="28,5 36,10 28,15" fill="#F7B600"/></svg>
+
+              <!-- Callback -->
+              <div class="flow-node node-w" data-layer="{{ sellerFlowNodes['sell-callback'].layer }}" data-node-id="sell-callback" onclick="showDetail('sell','sell-callback')">
+                <div class="flex gap-1 mb-1">
+                  {% for party in sellerFlowNodes['sell-callback'].parties %}
+                  <span class="party-badge {{ partyStyleMap[party].bg }} {{ partyStyleMap[party].text }}">{{ party }}</span>
+                  {% endfor %}
+                </div>
+                <h4 class="font-heading font-semibold text-xs text-gray-900 leading-tight">{{ sellerFlowNodes['sell-callback'].title }}</h4>
+                <p class="text-[10px] text-gray-500 mt-0.5">{{ sellerFlowNodes['sell-callback'].subtitle }}</p>
+              </div>
+            </div>
+            <!-- END DELIVERY ZONE -->
+
+          </div>
+        </div>
+        <!-- Security & Infrastructure -->
+        <div class="security-strip">
+          <span class="strip-label mr-1">Security</span>
+          <span class="security-badge badge-green"><svg fill="none" stroke="#16A34A" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>OpenPeppol Certified</span>
+          <span class="security-badge badge-blue"><svg fill="none" stroke="#2563EB" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Encrypted API</span>
+          <span class="security-badge badge-purple"><svg fill="none" stroke="#7C3AED" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Peppol PKI</span>
+          <span class="security-badge badge-green"><svg fill="none" stroke="#16A34A" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>AES-256</span>
+          <span class="security-badge badge-gray"><svg fill="none" stroke="#6B7280" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>FTA Signing</span>
+          <span class="security-badge badge-visa"><svg fill="none" stroke="#B45309" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>3DS Auth</span>
+          <span class="security-divider"></span>
+          <span class="strip-label mr-1">Infrastructure</span>
+          <span class="security-badge badge-teal"><svg fill="none" stroke="#0D9488" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>UAE-Hosted</span>
+          <span class="security-badge badge-teal"><svg fill="none" stroke="#0D9488" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Data Residency</span>
+          <span class="security-badge badge-teal"><svg fill="none" stroke="#0D9488" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>ISO 27001</span>
+        </div>
+      </div>
+
+      <!-- PayFac API Sub-Diagram -->
+      <div id="payfacSubDiagram" class="detail-panel bg-white rounded-xl shadow-lg border-2 overflow-hidden" style="border-color: #F7B600;">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <div class="flex flex-wrap gap-1.5 mb-2"><span class="party-badge bg-clear-light text-clear">Clear</span><span class="party-badge bg-payfac-light text-visa">{{ navPartner1Name }} PayFac</span></div>
+              <h3 class="font-heading font-bold text-lg text-gray-900">{{ navPartner1Name }} PayFac API -- Payment Link Generation</h3>
+              <p class="text-sm text-gray-500 mt-0.5">Real-time, secure, sub-second payment link generation</p>
+            </div>
+            <button onclick="closePayfacDiagram()" class="text-gray-400 hover:text-gray-600 p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+          </div>
+          <div class="payfac-subflow my-4">
+            <div class="payfac-subnode"><h5>TLS Handshake</h5><p>Encrypted API authentication. Secure channel established.</p></div>
+            <div class="payfac-arrow">&rarr;</div>
+            <div class="payfac-subnode"><h5>API Request</h5><p>POST /payment-links<br/>{{ '{' }} amount, currency: {{ currency }}, merchantId, invoiceRef {{ '}' }}</p></div>
+            <div class="payfac-arrow">&rarr;</div>
+            <div class="payfac-subnode"><h5>{{ navPartner1Name }} Processes</h5><p>Link generation, QR encoding, fraud screening</p></div>
+            <div class="payfac-arrow">&rarr;</div>
+            <div class="payfac-subnode"><h5>Response</h5><p>{{ '{' }} paymentLinkUrl, qrCodeData, expiresAt {{ '}' }}<br/>Sub-second latency</p></div>
+            <div class="payfac-arrow">&rarr;</div>
+            <div class="payfac-subnode"><h5>Embed in XML</h5><p>Link inserted into UBL AdditionalDocumentReference</p></div>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-3 mt-3">
+            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Error Handling &amp; SLA</p>
+            <p class="text-xs text-gray-600">Retry with exponential backoff. Fallback to cached link if available. 99.9% uptime SLA. All calls over encrypted TLS channel.</p>
+          </div>
+          <button onclick="showStandardDetail()" class="text-xs text-primary font-semibold mt-3 hover:underline">&larr; Back to node detail</button>
+        </div>
+      </div>
+
+      <!-- Detail Panel -->
+      <div id="sellDetailPanel" class="detail-panel bg-white rounded-xl shadow-lg border-2 border-primary overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-3">
+            <div><div id="sellDetailParties" class="flex flex-wrap gap-1.5 mb-2"></div><h3 id="sellDetailTitle" class="font-heading font-bold text-lg text-gray-900"></h3><p id="sellDetailSubtitle" class="text-sm text-gray-500 mt-0.5"></p></div>
+            <button onclick="closeDetail('sell')" class="text-gray-400 hover:text-gray-600 p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+          </div>
+          <p id="sellDetailBody" class="text-sm text-gray-700 leading-relaxed mb-4"></p>
+          <div class="bg-gray-50 rounded-lg p-3"><p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Data Flow</p><p id="sellDetailDataFlow" class="text-xs text-gray-600"></p></div>
+        </div>
+      </div>
+
+      <!-- ===== DASHBOARD MOCKUPS ===== -->
+      <h3 class="font-heading font-bold text-lg text-gray-900 mt-10 mb-4">What the Seller Sees on ClearTax</h3>
+      <div class="dashboard-mockup mb-8">
+        <div class="bg-gray-50 px-5 py-3 border-b border-gray-200 flex items-center gap-2">
+          <div class="w-6 h-6 {{ sellerDashboard.iconBgClass }} rounded flex items-center justify-center"><span class="text-white" style="font-size:7px; font-weight:800;">{{ sellerDashboard.iconInitial }}</span></div>
+          <span class="text-sm font-bold text-gray-800">{{ sellerDashboard.title }}</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 border-b border-gray-100">
+          {% for stat in sellerDashboard.stats %}
+          <div class="bg-gray-50 rounded-lg p-3 text-center"><p class="font-heading font-bold text-xl text-{{ stat.colorClass }}">{{ stat.value }}</p><p class="text-[10px] text-gray-500 uppercase font-semibold">{{ stat.label }}</p></div>
+          {% endfor %}
+        </div>
+        <div class="overflow-x-auto">
+          <table class="dashboard-table">
+            <thead><tr>{% for h in sellerDashboard.tableHeaders %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+            <tbody>
+              {% for row in sellerDashboard.rows %}
+              <tr>{% for cell in row.cells %}<td>{{ cell | safe }}</td>{% endfor %}</tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3 class="font-heading font-bold text-lg text-gray-900 mb-4">What {{ navPartner1Name }} and {{ parties[5].label if parties | length > 5 else 'Partner' }} See</h3>
+      <div class="dashboard-mockup mb-6">
+        <div class="bg-gray-50 px-5 py-3 border-b border-gray-200 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2"><div class="w-6 h-6 {{ partnerDashboard.iconBgClass }} rounded flex items-center justify-center"><span class="text-white" style="font-size:7px; font-weight:800;">{{ partnerDashboard.iconInitial }}</span></div><span class="text-sm font-bold text-gray-800">{{ partnerDashboard.title }}</span></div>
+          {% if partnerDashboard.headerStats %}
+          <div class="flex gap-4 text-xs">
+            {% for headerStat in partnerDashboard.headerStats %}
+            <span class="text-gray-500">{{ headerStat | safe }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="overflow-x-auto">
+          <table class="dashboard-table">
+            <thead><tr>{% for h in partnerDashboard.tableHeaders %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+            <tbody>
+              {% for row in partnerDashboard.rows %}
+              <tr>{% for cell in row.cells %}<td>{{ cell | safe }}</td>{% endfor %}</tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,44 @@
+{
+  "UAE": {
+    "currency": "AED",
+    "regulatoryBody": "FTA",
+    "invoiceStandard": "PINT AE / UBL 2.1",
+    "network": "Peppol",
+    "locale": "en-AE"
+  },
+  "KSA": {
+    "currency": "SAR",
+    "regulatoryBody": "ZATCA",
+    "invoiceStandard": "ZATCA FATOORA",
+    "network": "Direct CTC",
+    "locale": "en-SA"
+  },
+  "Malaysia": {
+    "currency": "MYR",
+    "regulatoryBody": "LHDN",
+    "invoiceStandard": "MyInvois",
+    "network": "Direct CTC",
+    "locale": "en-MY"
+  },
+  "India": {
+    "currency": "INR",
+    "regulatoryBody": "GSTN",
+    "invoiceStandard": "GST e-Invoice",
+    "network": "IRP",
+    "locale": "en-IN"
+  },
+  "EU": {
+    "currency": "EUR",
+    "regulatoryBody": "EU Commission",
+    "invoiceStandard": "EN 16931 / UBL 2.1",
+    "network": "Peppol",
+    "locale": "en-EU"
+  },
+  "Singapore": {
+    "currency": "SGD",
+    "regulatoryBody": "IRAS",
+    "invoiceStandard": "Peppol BIS 3.0",
+    "network": "Peppol",
+    "locale": "en-SG"
+  }
+}

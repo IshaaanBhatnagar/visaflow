@@ -1,0 +1,628 @@
+{
+  "pageTitle": "Visa x Clear UAE — e-Invoicing + Digital Payments",
+  "footerText": "Visa x Clear UAE -- Confidential. For internal discussion only.",
+  "navPartner1Name": "Visa",
+  "navPartner1Initial": "V",
+  "navPlatformName": "Clear",
+  "navPlatformInitial": "C",
+  "country": "UAE",
+  "currency": "AED",
+
+  "colors": {
+    "partner1Name": "visa",
+    "partner1Hex": "#1A1F71",
+    "partner1Light": "#DBEAFE",
+    "partner2Name": "mashreq",
+    "partner2Hex": "#0D9488",
+    "partner2Light": "#CCFBF1",
+    "accentHex": "#F7B600",
+    "accentLight": "#FEF3C7",
+    "platformHex": "#16A34A",
+    "platformLight": "#DCFCE7"
+  },
+
+  "parties": [
+    { "id": "seller", "label": "Seller", "bgClass": "bg-seller-light", "textClass": "text-seller" },
+    { "id": "clear", "label": "Clear", "bgClass": "bg-clear-light", "textClass": "text-clear" },
+    { "id": "payfac", "label": "Visa PayFac", "bgClass": "bg-payfac-light", "textClass": "text-visa" },
+    { "id": "buyer", "label": "Buyer ASP", "bgClass": "bg-buyer-light", "textClass": "text-buyer" },
+    { "id": "fta", "label": "FTA", "bgClass": "bg-fta-light", "textClass": "text-fta" },
+    { "id": "mashreq", "label": "Mashreq", "bgClass": "bg-mashreq-light", "textClass": "text-mashreq" }
+  ],
+
+  "tab1": {
+    "headline": "UAE's e-Invoicing Mandate Creates a B2B Payments Opportunity",
+    "subheadline": "The UAE e-Invoicing mandate rolls out in two waves starting 2027. It digitizes invoices -- but not payments. For Visa and Mashreq, this gap is greenfield.",
+    "statCards": [
+      {
+        "value": "Jul 2026",
+        "label": "Wave 1 -- Large Businesses",
+        "description": "Pilot starts Jul 2026 for businesses with revenue >= AED 50M. Mandatory from Jan 2027."
+      },
+      {
+        "value": "Jul 2027",
+        "label": "Wave 2 -- SMEs",
+        "description": "All remaining businesses (revenue < AED 50M) go live. ASP appointment by Mar 2027."
+      },
+      {
+        "value": "100%",
+        "label": "B2B Coverage",
+        "description": "All VAT-registered businesses issuing B2B and B2G invoices must comply"
+      }
+    ],
+    "whatItSolves": [
+      { "bold": "Invoice creation", "text": "-- structured PINT AE / UBL 2.1 format, auto-validated" },
+      { "bold": "Invoice delivery", "text": "-- Peppol network, guaranteed receipt, audit trail" },
+      { "bold": "Invoice verification", "text": "-- auto-ingested, schema-validated, de-duplicated" }
+    ],
+    "whatItDoesntSolve": {
+      "headline": "The Mandate Solves Invoicing. Not Payments.",
+      "body": "Payment collection remains disconnected. No mechanism to embed payment links, trigger payments, or reconcile invoices with payment status. Manual bank transfers, cheques, 30-90 day DSO.",
+      "callout": "This is the gap Visa and Mashreq fill."
+    },
+    "quoteBanner": "\"Every e-Invoice carries a <strong class=\"text-visa\">Visa payment link</strong>. Every payment routes through <strong class=\"text-visa\">Visa rails</strong>. Every validated invoice feeds <strong class=\"text-mashreq\">Mashreq's financing pipeline</strong>.\"",
+    "partnerCards": [
+      {
+        "partnerName": "Visa",
+        "partnerInitial": "V",
+        "colorClass": "visa",
+        "headline": "For Visa",
+        "body": "<strong>Capture SME payment volume at the point of invoice creation.</strong> SMEs lack treasury infrastructure -- embedded Visa payment links in every e-Invoice give them a one-click payment path, making Visa the default B2B rail."
+      },
+      {
+        "partnerName": "Mashreq",
+        "partnerInitial": "M",
+        "colorClass": "mashreq",
+        "headline": "For Mashreq",
+        "body": "<strong>Finance against pre-validated, FTA-compliant invoice data.</strong> Every invoice passing the platform is schema-validated, de-duplicated, and government-reported -- a pre-qualified lending asset at scale."
+      }
+    ]
+  },
+
+  "sellerFlowNodes": {
+    "sell-erp": {
+      "title": "Invoice Created in ERP",
+      "subtitle": "Accounting software",
+      "parties": ["Seller"],
+      "layer": "compliance"
+    },
+    "sell-transform": {
+      "title": "Transform to PINT AE",
+      "subtitle": "UBL 2.1 XML generation",
+      "parties": ["Seller", "Clear"],
+      "layer": "compliance"
+    },
+    "sell-validate": {
+      "title": "Validation Pipeline",
+      "subtitle": "",
+      "parties": ["Clear"],
+      "layer": "compliance"
+    },
+    "sell-proceed": {
+      "title": "Proceed",
+      "subtitle": "Link already present",
+      "parties": ["Clear"],
+      "layer": "compliance"
+    },
+    "sell-decision": {
+      "title": "Has Pay Link?",
+      "subtitle": "",
+      "parties": ["Clear"],
+      "layer": "payment"
+    },
+    "sell-visa-req": {
+      "title": "Request Pay Link",
+      "subtitle": "Visa PayFac API",
+      "parties": ["Clear", "Visa PayFac"],
+      "layer": "payment"
+    },
+    "sell-ready": {
+      "title": "Invoice + Payment Link",
+      "subtitle": "100% coverage",
+      "parties": ["Clear", "Visa PayFac"],
+      "layer": "payment"
+    },
+    "sell-peppol": {
+      "title": "Peppol Delivery",
+      "subtitle": "AS4 to Buyer ASP",
+      "parties": ["Clear", "Buyer ASP"],
+      "layer": "compliance"
+    },
+    "sell-email": {
+      "title": "Email PDF Invoice",
+      "subtitle": "PDF + QR code + pay link",
+      "parties": ["Clear", "Buyer"],
+      "layer": "payment"
+    },
+    "sell-fta": {
+      "title": "FTA Reporting",
+      "subtitle": "CTC compliance",
+      "parties": ["Clear", "FTA"],
+      "layer": "compliance"
+    },
+    "sell-mashreq": {
+      "title": "Mashreq Financing",
+      "subtitle": "Invoice factoring",
+      "parties": ["Clear", "Mashreq"],
+      "layer": "payment"
+    },
+    "sell-remind": {
+      "title": "Payment Reminders",
+      "subtitle": "Based on credit terms",
+      "parties": ["Clear", "Buyer"],
+      "layer": "payment"
+    },
+    "sell-callback": {
+      "title": "Payment Callback",
+      "subtitle": "Real-time webhook",
+      "parties": ["Visa PayFac", "Clear", "Seller"],
+      "layer": "payment"
+    }
+  },
+
+  "sellerValidationSteps": [
+    { "label": "XSD" },
+    { "label": "XSLT" },
+    { "label": "BR" },
+    { "label": "Dup" },
+    { "label": "FTA" }
+  ],
+
+  "buyerFlowNodes": {
+    "buy-receive": {
+      "title": "e-Invoice Received",
+      "subtitle": "Peppol inbound",
+      "parties": ["Buyer ASP", "Clear"],
+      "layer": "compliance"
+    },
+    "buy-validate": {
+      "title": "Multi-Layer Validation",
+      "subtitle": "",
+      "parties": ["Clear"],
+      "layer": "compliance"
+    },
+    "buy-present": {
+      "title": "Present to Buyer",
+      "subtitle": "Portal view + notification",
+      "parties": ["Clear", "Buyer"],
+      "layer": "compliance"
+    },
+    "buy-qr": {
+      "title": "QR Code Payment",
+      "subtitle": "Scan to pay",
+      "parties": ["Visa PayFac", "Buyer"],
+      "layer": "payment"
+    },
+    "buy-link": {
+      "title": "Click-to-Pay Link",
+      "subtitle": "Visa secure page",
+      "parties": ["Visa PayFac", "Buyer"],
+      "layer": "payment"
+    },
+    "buy-incentives": {
+      "title": "Smart Incentives",
+      "subtitle": "Discounts, EMI, bulk pay",
+      "parties": ["Visa PayFac", "Buyer"],
+      "layer": "payment"
+    },
+    "buy-execute": {
+      "title": "Payment via Visa Rails",
+      "subtitle": "Webhook to Clear",
+      "parties": ["Buyer", "Visa PayFac"],
+      "layer": "payment"
+    },
+    "buy-notify": {
+      "title": "Seller Notified",
+      "subtitle": "Invoice marked Paid",
+      "parties": ["Clear", "Seller"],
+      "layer": "compliance"
+    }
+  },
+
+  "buyerValidationSteps": [
+    { "label": "Cert" },
+    { "label": "Transport" },
+    { "label": "XSD" },
+    { "label": "Dup" }
+  ],
+
+  "nodeDetails": {
+    "sell-erp": {
+      "title": "Invoice Created in ERP",
+      "subtitle": "The starting point for every Visa B2B transaction",
+      "parties": ["Seller"],
+      "detail": "The seller creates an invoice in their ERP or accounting software. This is the origin of every potential Visa payment -- the invoice includes buyer details, line items, quantities, unit prices, VAT calculations, and payment terms. Once submitted, Clear's platform transforms it into a payment-ready e-Invoice.",
+      "dataFlow": "Seller ERP generates structured invoice data with all fields required per UAE e-Invoicing mandate."
+    },
+    "sell-transform": {
+      "title": "Ingest + Transform to PINT AE",
+      "subtitle": "Structured data enables Visa link embedding",
+      "parties": ["Seller", "Clear"],
+      "detail": "The seller's invoice data is transformed into PINT AE (Peppol International, UAE profile) format -- a UBL 2.1 compliant XML structure. This structured format is what enables Visa payment links and Mashreq financing data to be embedded. Clear's platform handles the transformation via ERP plugin or API, including seller/buyer TRN, line-level tax breakdowns, and all FTA-required fields.",
+      "dataFlow": "Seller ERP \u2192 Clear: Raw invoice data via API/plugin. Clear generates PINT AE XML with FTA-compliant structure."
+    },
+    "sell-validate": {
+      "title": "Validation Pipeline",
+      "subtitle": "Ensures data integrity for Visa and Mashreq",
+      "parties": ["Clear"],
+      "detail": "The validation pipeline ensures every invoice that reaches Visa's payment rails and Mashreq's financing platform is accurate and compliant. Steps: (1) XSD schema check, (2) XSLT transformation rules, (3) Business rule validation (tax calculations, mandatory fields), (4) Duplicate detection -- critical for Mashreq's financing risk model, (5) FTA-specific UAE compliance rules. Clear's platform executes this pipeline; any failure rejects the invoice with specific error codes.",
+      "dataFlow": "Internal pipeline: XSD \u2192 XSLT \u2192 Business rules \u2192 Duplicate check \u2192 FTA rules. Sequential validation with fail-fast."
+    },
+    "sell-decision": {
+      "title": "Has Payment Link?",
+      "subtitle": "Ensuring 100% Visa payment link coverage",
+      "parties": ["Clear"],
+      "detail": "This decision point ensures 100% Visa payment link coverage -- the key metric for B2B payment capture. If the invoice already contains a valid Visa payment link (from an ERP with direct Visa integration), it is validated and proceeds. If missing, the platform routes to Visa PayFac to generate one. The result: every invoice carries a Visa payment mechanism, maximizing transaction capture.",
+      "dataFlow": "Platform inspects the invoice's additional document reference field for a valid Visa payment URL. Routes to YES (proceed) or NO (request from PayFac)."
+    },
+    "sell-visa-req": {
+      "title": "Request Payment Link from Visa PayFac",
+      "subtitle": "Visa generates a payment link for this invoice",
+      "parties": ["Clear", "Visa PayFac"],
+      "detail": "The Visa PayFac API is called with the invoice amount (AED), seller's merchant ID, and a unique invoice reference. Visa PayFac generates a payment link and QR code that are embedded into the e-Invoice XML. This is the moment a compliance document becomes a Visa payment trigger. Clear orchestrates the API call and embeds the result.",
+      "dataFlow": "Clear \u2192 Visa PayFac: Amount, merchant ID, invoice ref. Visa \u2192 Clear: Payment link URL + QR data."
+    },
+    "sell-proceed": {
+      "title": "Proceed with Existing Link",
+      "subtitle": "Visa payment link already embedded upstream",
+      "parties": ["Clear"],
+      "detail": "The seller's ERP already embedded a Visa payment link. The platform validates it's active, correctly formatted, and matches the invoice amount. This path means Visa's payment link was generated upstream -- still captured as a Visa B2B transaction.",
+      "dataFlow": "Platform validates existing payment link against invoice metadata. If valid, proceeds to dispatch."
+    },
+    "sell-ready": {
+      "title": "Invoice + Embedded Payment Link",
+      "subtitle": "100% Visa payment coverage achieved",
+      "parties": ["Clear", "Visa PayFac"],
+      "detail": "Whether the link was newly generated or pre-existing, every invoice now carries a validated Visa payment mechanism. This is the central value proposition: 100% of invoices carry an embedded Visa payment option, converting every e-Invoice into potential Visa transaction volume. For Mashreq, each validated invoice is also a pre-qualified financing asset.",
+      "dataFlow": "Validated PINT AE XML with Visa payment link in additional document reference. Ready for Peppol, FTA, and Mashreq."
+    },
+    "sell-peppol": {
+      "title": "Peppol Delivery to Buyer ASP",
+      "subtitle": "Every invoice delivered = a Visa payment link delivered",
+      "parties": ["Clear", "Buyer ASP"],
+      "detail": "The e-Invoice -- now carrying a Visa payment link -- is dispatched to the buyer's ASP via Peppol AS4 protocol. From Visa's perspective, this is distribution: every invoice delivered is a payment link delivered. Clear handles the Peppol network delivery with signed SBDH envelopes and full audit trail.",
+      "dataFlow": "Clear \u2192 Peppol SMP \u2192 Buyer ASP (AS4). Buyer ASP \u2192 Clear: delivery receipt / MDN."
+    },
+    "sell-fta": {
+      "title": "FTA Government Reporting",
+      "subtitle": "Government validation strengthens Mashreq's financing data",
+      "parties": ["Clear", "FTA"],
+      "detail": "In parallel, invoice data is submitted to FTA for CTC (Continuous Transaction Controls) compliance. This government reporting step legitimizes the invoice data that Mashreq uses for financing decisions -- FTA-validated invoices carry higher confidence for underwriting. Clear handles the FTA API submission; FTA returns a clearance UUID.",
+      "dataFlow": "Clear \u2192 FTA: CTC submission via FTA API. FTA \u2192 Clear: Clearance status / UUID."
+    },
+    "sell-mashreq": {
+      "title": "Mashreq Financing Submission",
+      "subtitle": "Pre-validated invoices feed Mashreq's lending pipeline",
+      "parties": ["Clear", "Mashreq"],
+      "detail": "Mashreq receives the validated, FTA-compliant invoice data for financing assessment. Because the invoice has passed schema validation, business rules, and duplicate detection, Mashreq can underwrite with high confidence and reduced risk. The seller can access early payment while the buyer pays on standard terms. Clear submits the data package via Mashreq's Open Banking API.",
+      "dataFlow": "Clear \u2192 Mashreq: Validated invoice + seller profile + dup check. Mashreq \u2192 Clear: Eligibility + terms."
+    },
+    "sell-email": {
+      "title": "Email PDF Invoice with Payment Link",
+      "subtitle": "PDF invoice delivered directly with Visa payment options",
+      "parties": ["Clear", "Buyer"],
+      "detail": "In addition to Peppol delivery, Clear sends the buyer an email with a PDF invoice attachment. The PDF contains the full invoice details along with an embedded Visa QR code and a click-to-pay link -- making it easy for the buyer to pay directly from the document. This ensures the buyer receives the payment link even if their system hasn't ingested the Peppol message yet. For SMEs without sophisticated ERP systems, the PDF email is often the primary payment trigger.",
+      "dataFlow": "Clear \u2192 Buyer: Email with PDF invoice attachment (QR code + Visa payment link embedded in PDF). Includes payment due date and credit terms."
+    },
+    "sell-remind": {
+      "title": "Payment Reminders",
+      "subtitle": "Automated follow-ups based on credit terms",
+      "parties": ["Clear", "Buyer"],
+      "detail": "Clear sends automated payment reminders to the buyer based on the invoice's payment due date and credit terms. Reminders escalate: a gentle nudge 7 days before due, a reminder on the due date, and follow-ups for overdue invoices. Each reminder includes the Visa payment link for one-click payment. Configurable frequency and escalation rules per seller.",
+      "dataFlow": "Clear \u2192 Buyer: Scheduled email reminders with Visa payment link. Clear \u2192 Seller: Reminder status updates (sent, opened, clicked)."
+    },
+    "sell-callback": {
+      "title": "Payment Callback",
+      "subtitle": "Real-time confirmation closes the loop",
+      "parties": ["Visa PayFac", "Clear", "Seller"],
+      "detail": "When the buyer completes payment via Visa rails, Visa sends a real-time webhook to Clear with the transaction confirmation -- amount, transaction ID, timestamp, and settlement details. Clear instantly updates the invoice status to \"Paid\" and notifies the seller's ERP. The loop is fully closed: invoice created \u2192 payment link sent \u2192 payment received \u2192 seller notified, all tracked end-to-end.",
+      "dataFlow": "Visa \u2192 Clear: Payment webhook (txn ID, amount, status, timestamp). Clear \u2192 Seller ERP: Real-time status update + settlement notification."
+    },
+    "buy-receive": {
+      "title": "e-Invoice Received via Peppol",
+      "subtitle": "A payment-enabled invoice reaches the buyer",
+      "parties": ["Buyer ASP", "Clear"],
+      "detail": "The inbound e-Invoice arrives from the seller's ASP on the Peppol network, carrying a Visa payment link. From Visa's perspective, this is the moment a payment-enabled invoice reaches the buyer -- every receipt is a potential Visa transaction. Clear, acting as the buyer's ASP, receives the signed SBDH envelope.",
+      "dataFlow": "Seller ASP \u2192 Peppol \u2192 Clear (Buyer ASP): SBDH + PINT AE XML + payment link."
+    },
+    "buy-validate": {
+      "title": "Multi-Layer Validation",
+      "subtitle": "Protects Visa payment integrity and Mashreq financing quality",
+      "parties": ["Clear"],
+      "detail": "Inbound validation ensures only legitimate, verified invoices reach the buyer's payment workflow -- protecting Visa's payment integrity and Mashreq's financing quality. Steps: (1) Peppol certificate verification -- is the sender a registered ASP? (2) Transport checks -- clean AS4 delivery? (3) XSD/XSLT conformance to PINT AE. (4) Duplicate detection. Clear's platform executes these checks; only passing invoices proceed.",
+      "dataFlow": "Certificate \u2192 Transport \u2192 XSD/XSLT \u2192 Duplicate detection. Fail = reject with error codes."
+    },
+    "buy-present": {
+      "title": "Invoice Presented to Buyer",
+      "subtitle": "Buyer sees invoice and Visa payment options simultaneously",
+      "parties": ["Clear", "Buyer"],
+      "detail": "The validated invoice is presented to the buyer via Clear's portal with prominent Visa payment options (QR code, click-to-pay link) and smart incentives (early payment discounts, EMI plans, bulk consolidation). This is the conversion point -- the buyer sees the invoice and payment options simultaneously, creating choice architecture that favors Visa capture. Clear handles the portal presentation and notification delivery.",
+      "dataFlow": "Clear \u2192 Buyer: Invoice presented via portal with Visa payment CTA + smart incentives. Buyer notified via email/SMS."
+    },
+    "buy-qr": {
+      "title": "QR Code Payment",
+      "subtitle": "Visa's mobile-first B2B payment path",
+      "parties": ["Visa PayFac", "Buyer"],
+      "detail": "Visa's payment link generates a QR code the buyer can scan from mobile banking or Visa wallet. The QR encodes amount, merchant ID, and invoice reference for one-tap payment -- a frictionless path from invoice receipt to Visa transaction. This is Visa's mobile-first touchpoint in B2B payments.",
+      "dataFlow": "Visa payment link \u2192 QR rendered in buyer view. Buyer scans \u2192 Payment via Visa network."
+    },
+    "buy-link": {
+      "title": "Click-to-Pay Link",
+      "subtitle": "Visa's direct branded touchpoint with the buyer",
+      "parties": ["Visa PayFac", "Buyer"],
+      "detail": "Buyer clicks the embedded Visa payment link, opening Visa's secure payment page pre-filled with invoice details. 3DS authentication ensures payment security. This is Visa's direct branded touchpoint with the buyer -- secure, pre-filled, and linked to a verified invoice. Payment via Visa card or linked bank.",
+      "dataFlow": "Payment link URL \u2192 Visa secure page (pre-filled). Buyer authenticates (3DS) + pays."
+    },
+    "buy-incentives": {
+      "title": "Smart Payment Incentives",
+      "subtitle": "Discounts, EMI, and bulk pay drive faster Visa transactions",
+      "parties": ["Visa PayFac", "Buyer"],
+      "detail": "Buyers are incentivized to pay faster and pay via Visa through three mechanisms: (1) Early payment discounts -- pay within 7 days for a 2% discount, automatically applied at checkout. (2) Bulk payment consolidation -- combine multiple outstanding invoices into a single Visa transaction, reducing payment friction. (3) EMI / installment plans -- split large invoices into monthly Visa payments, making high-value B2B transactions more accessible. Every incentive routes through Visa rails, increasing transaction volume and buyer engagement.",
+      "dataFlow": "Clear \u2192 Buyer: Incentive options presented alongside invoice. Buyer selects terms \u2192 Payment via Visa rails with applied discount/EMI schedule."
+    },
+    "buy-execute": {
+      "title": "Payment via Visa Rails",
+      "subtitle": "Visa captures B2B payment volume regardless of method",
+      "parties": ["Buyer", "Visa PayFac"],
+      "detail": "Regardless of which payment method the buyer chose, the transaction routes through Visa rails. Visa captures the B2B payment volume. A confirmation webhook notifies the platform with status, transaction ID, and timestamp -- creating a verified invoice-to-payment link. This closed-loop data is valuable for both Visa analytics and Mashreq risk models.",
+      "dataFlow": "Buyer \u2192 Visa: Payment. Visa \u2192 Clear: Webhook (status, txn ID, timestamp). Visa \u2192 Seller bank: Settlement."
+    },
+    "buy-notify": {
+      "title": "Seller Notified + Status Updated",
+      "subtitle": "Visa-powered closed-loop reconciliation",
+      "parties": ["Clear", "Seller"],
+      "detail": "Visa's payment confirmation triggers automatic reconciliation -- the invoice is marked \"Paid\" in both the seller's and buyer's systems. The loop is fully closed: a Visa-powered payment against an FTA-compliant invoice, with zero manual follow-up. Clear's platform handles the status update and seller notification in real-time.",
+      "dataFlow": "Visa \u2192 Clear: Confirmation. Clear \u2192 Seller: Real-time notification. Both systems: Status = Paid."
+    }
+  },
+
+  "sellerDashboard": {
+    "iconBgClass": "bg-primary",
+    "iconInitial": "C",
+    "title": "Seller Portal -- Invoices & Financing",
+    "headerStats": null,
+    "stats": [
+      { "value": "84", "label": "Total Invoices", "colorClass": "gray-900" },
+      { "value": "71", "label": "Pay Links Sent", "colorClass": "primary" },
+      { "value": "48", "label": "Payments Received", "colorClass": "positive" },
+      { "value": "12", "label": "Financing Eligible", "colorClass": "mashreq" }
+    ],
+    "tableHeaders": ["Invoice #", "Buyer", "Amount (AED)", "Payment Status", "Financing", "Terms", "Action"],
+    "rows": [
+      { "cells": ["<td class=\"font-medium\">INV-0847</td>", "<td>Gulf Enterprises</td>", "<td class=\"font-medium\">52,500</td>", "<td><span class=\"status-pill status-paid\">Paid</span></td>", "<td class=\"text-gray-400 text-xs\">--</td>", "<td class=\"text-gray-400 text-xs\">--</td>", "<td></td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-0848</td>", "<td>Desert Logistics</td>", "<td class=\"font-medium\">18,750</td>", "<td><span class=\"status-pill status-pending\">Pending</span></td>", "<td class=\"text-gray-400 text-xs\">--</td>", "<td class=\"text-gray-400 text-xs\">--</td>", "<td><span class=\"text-xs text-primary font-semibold cursor-pointer\">Send Reminder</span></td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-0851</td>", "<td>Pearl Trading Co.</td>", "<td class=\"font-medium\">125,000</td>", "<td><span class=\"status-pill status-sent\">Sent</span></td>", "<td><span class=\"status-pill status-available\">Available</span></td>", "<td class=\"text-xs text-gray-600\">90 days, 2.5%</td>", "<td><span class=\"text-xs text-mashreq font-semibold cursor-pointer\">Apply</span></td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-0852</td>", "<td>Oasis Group</td>", "<td class=\"font-medium\">34,000</td>", "<td><span class=\"status-pill status-pending\">Pending</span></td>", "<td><span class=\"status-pill status-available\">Available</span></td>", "<td class=\"text-xs text-gray-600\">60 days, 2.0%</td>", "<td><span class=\"text-xs text-mashreq font-semibold cursor-pointer\">Apply</span></td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-0855</td>", "<td>Marina Holdings</td>", "<td class=\"font-medium\">67,200</td>", "<td><span class=\"status-pill status-paid\">Paid</span></td>", "<td class=\"text-gray-400 text-xs\">--</td>", "<td class=\"text-gray-400 text-xs\">--</td>", "<td></td>"] }
+    ]
+  },
+
+  "partnerDashboard": {
+    "iconBgClass": "bg-visa",
+    "iconInitial": "V",
+    "title": "Invoice Payment Link Dashboard",
+    "headerStats": ["<strong class=\"text-gray-800\">247</strong> invoices with links", "<strong class=\"text-positive\">68%</strong> click rate", "<strong class=\"text-visa\">AED 12.4M</strong> volume"],
+    "stats": [],
+    "tableHeaders": ["Invoice #", "Seller", "Buyer", "Amount (AED)", "Link Status", "Financing", "Date Sent"],
+    "rows": [
+      { "cells": ["<td class=\"font-medium\">INV-2027-0847</td>", "<td>Acme Trading LLC</td>", "<td>Gulf Enterprises</td>", "<td class=\"font-medium\">52,500</td>", "<td><span class=\"status-pill status-paid\">Paid</span></td>", "<td class=\"text-gray-400 text-xs\">--</td>", "<td>15 Mar 2027</td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-2027-0848</td>", "<td>Acme Trading LLC</td>", "<td>Desert Logistics</td>", "<td class=\"font-medium\">18,750</td>", "<td><span class=\"status-pill status-clicked\">Clicked</span></td>", "<td><span class=\"status-pill status-available\">Eligible</span></td>", "<td>15 Mar 2027</td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-2027-0851</td>", "<td>Nova Tech FZE</td>", "<td>Pearl Trading Co.</td>", "<td class=\"font-medium\">125,000</td>", "<td><span class=\"status-pill status-sent\">Sent</span></td>", "<td><span class=\"status-pill status-pending\">Requested</span></td>", "<td>14 Mar 2027</td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-2027-0839</td>", "<td>Crescent Services</td>", "<td>Oasis Group</td>", "<td class=\"font-medium\">8,400</td>", "<td><span class=\"status-pill status-paid\">Paid</span></td>", "<td><span class=\"status-pill status-paid\">Financed</span></td>", "<td>13 Mar 2027</td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-2027-0822</td>", "<td>Falcon Consulting</td>", "<td>Marina Holdings</td>", "<td class=\"font-medium\">67,200</td>", "<td><span class=\"status-pill status-expired\">Expired</span></td>", "<td><span class=\"status-pill status-expired\">Denied</span></td>", "<td>10 Mar 2027</td>"] }
+    ]
+  },
+
+  "buyerDashboard": {
+    "iconBgClass": "bg-buyer",
+    "iconInitial": "B",
+    "title": "Buyer Portal -- Invoices & Payments",
+    "headerStats": null,
+    "stats": [
+      { "value": "47", "label": "Invoices Received", "colorClass": "gray-900" },
+      { "value": "12", "label": "Pending Payment", "colorClass": "warning" },
+      { "value": "31", "label": "Paid", "colorClass": "positive" },
+      { "value": "4", "label": "Overdue", "colorClass": "danger" }
+    ],
+    "tableHeaders": ["Invoice #", "Seller", "Amount (AED)", "Due Date", "Payment Status", "Action"],
+    "rows": [
+      { "cells": ["<td class=\"font-medium\">INV-2027-0847</td>", "<td>Acme Trading LLC</td>", "<td class=\"font-medium\">52,500</td>", "<td>30 Mar 2027</td>", "<td><span class=\"status-pill status-paid\">Paid</span></td>", "<td></td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-2027-0851</td>", "<td>Nova Tech FZE</td>", "<td class=\"font-medium\">125,000</td>", "<td>15 Apr 2027</td>", "<td><span class=\"status-pill status-pending\">Pending</span></td>", "<td><span class=\"text-xs text-visa font-semibold cursor-pointer\">Pay Now</span></td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-2027-0855</td>", "<td>Falcon Consulting</td>", "<td class=\"font-medium\">67,200</td>", "<td>20 Apr 2027</td>", "<td><span class=\"status-pill status-sent\">Sent</span></td>", "<td><span class=\"text-xs text-visa font-semibold cursor-pointer\">Pay Now</span></td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-2027-0839</td>", "<td>Crescent Services</td>", "<td class=\"font-medium\">8,400</td>", "<td>10 Mar 2027</td>", "<td><span class=\"status-pill status-expired\">Overdue</span></td>", "<td><span class=\"text-xs text-visa font-semibold cursor-pointer\">Pay Now</span></td>"] },
+      { "cells": ["<td class=\"font-medium\">INV-2027-0860</td>", "<td>Pearl Trading Co.</td>", "<td class=\"font-medium\">34,000</td>", "<td>25 Apr 2027</td>", "<td><span class=\"status-pill status-paid\">Paid</span></td>", "<td></td>"] }
+    ]
+  },
+
+  "invoiceMockup": {
+    "sellerName": "Acme Trading LLC",
+    "sellerAddress": "Dubai Silicon Oasis, Dubai",
+    "sellerTrn": "100234567800003",
+    "buyerName": "Gulf Enterprises Co.",
+    "buyerAddress": "Business Bay, Dubai",
+    "buyerTrn": "100876543200001",
+    "invoiceNumber": "INV-2027-0847",
+    "invoiceDate": "15 Mar 2027",
+    "dueDate": "14 Apr 2027",
+    "lineItems": [
+      { "description": "Consulting Services -- Phase 1", "qty": "1", "rate": "25,000", "amount": "25,000" },
+      { "description": "Implementation Support", "qty": "1", "rate": "20,000", "amount": "20,000" },
+      { "description": "Technical Support (Monthly)", "qty": "1", "rate": "5,000", "amount": "5,000" }
+    ],
+    "subtotal": "50,000.00",
+    "vatRate": "5%",
+    "vatAmount": "2,500.00",
+    "total": "52,500.00",
+    "currency": "AED"
+  },
+
+  "phoneScreens": [
+    {
+      "stepLabel": "1 / 4 -- Invoice Received",
+      "contentHtml": "<div class=\"flex items-center gap-2 mb-4\"><div class=\"w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center\"><svg class=\"w-4 h-4 text-primary\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9\"/></svg></div><p class=\"text-xs font-semibold text-gray-800\">New Invoice</p></div><div class=\"bg-gray-50 rounded-lg p-3 mb-3\"><p class=\"text-xs font-semibold text-gray-800\">Invoice from Acme Corp</p><p class=\"font-heading font-bold text-lg text-gray-900 mt-1\">AED 52,500.00</p><p class=\"text-[10px] text-gray-500 mt-1\">INV-2027-0847 &middot; Due: 14 Apr 2027</p></div><button class=\"w-full bg-primary text-white text-xs font-semibold py-2.5 rounded-lg\">View &amp; Pay</button>"
+    },
+    {
+      "stepLabel": "2 / 4 -- Choose Payment",
+      "contentHtml": "<p class=\"text-xs font-semibold text-gray-800 mb-3\">Choose Payment Method</p><div class=\"space-y-2.5\"><div class=\"border-2 border-visa rounded-lg p-3 bg-blue-50/30\"><div class=\"flex items-center gap-2 mb-1\"><div class=\"w-6 h-6 bg-visa rounded flex items-center justify-center\"><span class=\"text-white\" style=\"font-size:7px; font-weight:800;\">V</span></div><span class=\"text-xs font-bold text-visa\">Click-to-Pay</span></div><p class=\"text-[10px] text-gray-500\">Pay with Visa card via secure link</p></div><div class=\"border border-gray-200 rounded-lg p-3\"><div class=\"flex items-center gap-2 mb-1\"><svg class=\"w-4 h-4 text-gray-400\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z\"/></svg><span class=\"text-xs font-bold text-gray-700\">QR Code</span></div><p class=\"text-[10px] text-gray-500\">Scan with banking app</p></div><div class=\"border border-gray-200 rounded-lg p-3\"><div class=\"flex items-center gap-2 mb-1\"><svg class=\"w-4 h-4 text-amber-500\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z\"/></svg><span class=\"text-xs font-bold text-amber-700\">Smart Incentives</span></div><p class=\"text-[10px] text-gray-500\">Early pay discounts &middot; EMI &middot; Bulk pay</p></div></div>"
+    },
+    {
+      "stepLabel": "3 / 4 -- Visa Secure Payment",
+      "contentHtml": "<div class=\"flex items-center gap-2 mb-4\"><div class=\"w-6 h-6 bg-visa rounded flex items-center justify-center\"><span class=\"text-white\" style=\"font-size:7px; font-weight:800;\">V</span></div><p class=\"text-xs font-semibold text-visa\">Visa Secure Payment</p></div><div class=\"bg-gray-50 rounded-lg p-3 mb-3\"><p class=\"text-[10px] text-gray-500 mb-1\">Amount</p><p class=\"font-heading font-bold text-lg text-gray-900\">AED 52,500.00</p><p class=\"text-[10px] text-gray-500 mt-1\">To: Acme Trading LLC</p></div><div class=\"space-y-2 mb-3\"><div class=\"bg-white border border-gray-200 rounded-lg p-2.5\"><p class=\"text-[10px] text-gray-500 mb-0.5\">Card</p><p class=\"text-xs text-gray-800 font-medium\">**** **** **** 4242</p></div><div class=\"bg-white border border-gray-200 rounded-lg p-2.5\"><p class=\"text-[10px] text-gray-500 mb-0.5\">Invoice Ref</p><p class=\"text-xs text-gray-800 font-medium\">INV-2027-0847</p></div></div><div class=\"flex items-center gap-1.5 mb-3\"><svg class=\"w-3.5 h-3.5 text-positive\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path fill-rule=\"evenodd\" d=\"M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\" clip-rule=\"evenodd\"/></svg><p class=\"text-[10px] text-positive font-semibold\">3D Secure Verified</p></div><button class=\"w-full bg-visa text-white text-xs font-bold py-2.5 rounded-lg\">Pay Now</button>"
+    },
+    {
+      "stepLabel": "4 / 4 -- Payment Confirmed",
+      "contentHtml": "<div class=\"text-center\"><div class=\"w-14 h-14 bg-positive/10 rounded-full flex items-center justify-center mx-auto mt-4 mb-3\"><svg class=\"w-7 h-7 text-positive\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\"/></svg></div><p class=\"font-heading font-bold text-positive text-sm mb-1\">Payment Confirmed</p><p class=\"font-heading font-bold text-xl text-gray-900 mb-4\">AED 52,500.00</p><div class=\"bg-gray-50 rounded-lg p-3 text-left space-y-2 text-xs\"><div class=\"flex justify-between\"><span class=\"text-gray-500\">Invoice</span><span class=\"text-gray-800 font-medium\">INV-2027-0847</span></div><div class=\"flex justify-between\"><span class=\"text-gray-500\">Status</span><span class=\"text-positive font-semibold\">Reconciled</span></div><div class=\"flex justify-between\"><span class=\"text-gray-500\">Seller notified</span><span class=\"text-gray-800 font-medium\">15 Mar, 10:42 AM</span></div><div class=\"flex justify-between\"><span class=\"text-gray-500\">Via</span><span class=\"text-visa font-semibold\">Visa Rails</span></div></div></div>"
+    }
+  ],
+
+  "tab5": {
+    "headline": "What Visa and Mashreq Capture",
+    "subheadline": "This partnership turns a compliance mandate into compounding payment volume for Visa and a new financing pipeline for Mashreq.",
+    "returnCards": [
+      {
+        "partnerName": "Visa",
+        "partnerInitial": "V",
+        "colorClass": "visa",
+        "headline": "B2B Payment Volume",
+        "bullets": [
+          { "bold": "Every e-Invoice becomes a Visa transaction", "text": "-- payment links embedded at the point of invoice creation, not as an afterthought" },
+          { "bold": "All VAT-registered businesses", "text": "-- mandatory compliance drives the volume, Visa captures the payment layer" },
+          { "bold": "Displace cheques and bank transfers", "text": "-- digital-first B2B payments, increasing Visa's share of UAE commercial transactions" },
+          { "bold": "Rich B2B payment data", "text": "-- invoice amounts, payment timing, industry patterns, buyer-seller relationships" }
+        ]
+      },
+      {
+        "partnerName": "Mashreq",
+        "partnerInitial": "M",
+        "colorClass": "mashreq",
+        "headline": "Invoice Financing Pipeline",
+        "bullets": [
+          { "bold": "Finance against FTA-validated invoices", "text": "-- every invoice is schema-checked, de-duplicated, and government-reported before reaching Mashreq" },
+          { "bold": "New SME lending channel", "text": "-- every VAT-registered business entering the e-Invoicing pipeline is a potential financing customer" },
+          { "bold": "Reduced underwriting risk", "text": "-- pre-validated, de-duplicated data with government clearance UUID as proof of legitimacy" },
+          { "bold": "Supply chain financing", "text": "-- pay sellers immediately via Visa rails, collect from buyers on terms, earning the spread" }
+        ]
+      }
+    ],
+    "adoptionCard": {
+      "headline": "SME Adoption Drives Both Volumes",
+      "bullets": [
+        { "bold": "Faster payment cycles", "text": "-- 30-90 day DSO to near-instant via Visa" },
+        { "bold": "Embedded payment links", "text": "-- no manual follow-up needed" },
+        { "bold": "Mashreq financing access", "text": "-- factoring against validated invoices" },
+        { "bold": "Auto reconciliation", "text": "-- invoices match payments automatically" }
+      ]
+    },
+    "alignmentCard": {
+      "headline": "Platform Alignment -- Clear",
+      "body": "Clear's incentives are fully aligned: higher ASP adoption grows Visa payment volume, validated invoice data feeds Mashreq's financing pipeline. Revenue scales with transaction throughput -- every Visa payment and Mashreq financing event benefits all three parties. Clear already operates as a dominant e-Invoicing platform in India (1M+ businesses), KSA, Malaysia, and the EU -- bringing battle-tested infrastructure and regulatory expertise to the UAE market."
+    }
+  },
+
+  "tab6": {
+    "headline": "Security @ Scale",
+    "subheadline": "Enterprise-grade payment security, proven global footprint, and UAE data sovereignty.",
+    "footprintHeadline": "Proven at Scale -- Clear's Global e-Invoicing Footprint",
+    "footprintSubheadline": "Clear is not building e-Invoicing for the first time in UAE. The platform already processes millions of invoices across multiple regions across the globe, bringing battle-tested infrastructure and deep compliance expertise.",
+    "footprintCards": [
+      {
+        "country": "India",
+        "borderColorClass": "border-orange-400",
+        "description": "Dominant e-Invoicing ASP. 1M+ businesses onboarded. Govt-certified GST e-Invoice platform processing millions of documents monthly."
+      },
+      {
+        "country": "KSA (Saudi Arabia)",
+        "borderColorClass": "border-green-600",
+        "description": "ZATCA Phase 2 FATOORA certified. Live with enterprise clients on the Saudi e-Invoicing mandate."
+      },
+      {
+        "country": "Malaysia",
+        "borderColorClass": "border-blue-500",
+        "description": "MyInvois-certified e-Invoicing provider. Live since Aug 2024 under Malaysia's LHDN mandate."
+      },
+      {
+        "country": "EU (Peppol)",
+        "borderColorClass": "border-indigo-500",
+        "description": "Certified Peppol Access Point. Multi-country coverage across the European e-Invoicing network."
+      },
+      {
+        "country": "UAE",
+        "borderColorClass": "border-teal-500",
+        "description": "Ready for the mandate. PINT AE compliant, Peppol-enabled, with Visa payment link integration and UAE-hosted infrastructure."
+      }
+    ],
+    "securityCards": [
+      {
+        "name": "OpenPeppol Certified",
+        "description": "Certified Peppol Access Point operator",
+        "iconBgClass": "bg-green-50",
+        "iconColorClass": "text-positive",
+        "iconType": "shield"
+      },
+      {
+        "name": "Encrypted API",
+        "description": "TLS-secured API calls to Visa PayFac",
+        "iconBgClass": "bg-blue-50",
+        "iconColorClass": "text-primary",
+        "iconType": "shield"
+      },
+      {
+        "name": "Peppol PKI",
+        "description": "Certificate-based sender authentication",
+        "iconBgClass": "bg-purple-50",
+        "iconColorClass": "text-buyer",
+        "iconType": "shield"
+      },
+      {
+        "name": "AES-256",
+        "description": "Encryption at rest and in transit",
+        "iconBgClass": "bg-green-50",
+        "iconColorClass": "text-positive",
+        "iconType": "lock"
+      },
+      {
+        "name": "FTA Signing",
+        "description": "Government-mandated digital signatures",
+        "iconBgClass": "bg-gray-50",
+        "iconColorClass": "text-neutral",
+        "iconType": "shield"
+      },
+      {
+        "name": "3D Secure",
+        "description": "Visa 3DS authentication for buyer payments",
+        "iconBgClass": "bg-blue-50",
+        "iconColorClass": "text-visa",
+        "iconType": "shield"
+      },
+      {
+        "name": "ISO 27001",
+        "description": "Information security management certified",
+        "iconBgClass": "bg-teal-50",
+        "iconColorClass": "text-mashreq",
+        "iconType": "shield"
+      },
+      {
+        "name": "SOC 2 Type II",
+        "description": "Audited security controls and processes",
+        "iconBgClass": "bg-amber-50",
+        "iconColorClass": "text-warning",
+        "iconType": "lock"
+      }
+    ],
+    "infraHeadline": "UAE Infrastructure",
+    "infraCards": [
+      {
+        "title": "Data Residency",
+        "body": "All invoice, payment, and financing data stays within AWS Middle East (me-central-1)"
+      },
+      {
+        "title": "Low Latency",
+        "body": "Low-latency API response times for all integrations within the region"
+      },
+      {
+        "title": "Data Sovereignty",
+        "body": "Compliant with UAE data protection regulations and CBUAE requirements"
+      }
+    ]
+  }
+}
