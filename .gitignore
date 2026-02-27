@@ -1,0 +1,6 @@
+pitchDeckBot/output/
+pitchDeckBot/contentGen/__pycache__/
+pitchDeckBot/templateEngine/__pycache__/
+__pycache__/
+*.pyc
+.env
