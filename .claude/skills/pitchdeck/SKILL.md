@@ -1,7 +1,8 @@
 ---
-description: Generate an interactive pitch deck HTML for a partner deal
+name: pitchdeck
+description: Generate an interactive pitch deck HTML for a partner deal. Use when asked to create a pitch deck, sales presentation, or partner proposal.
+disable-model-invocation: true
 argument-hint: [PartnerName Country] [--quick]
-allowed-tools: [Read, Write, Bash(python3:*), Bash(open:*), Bash(ls:*), Bash(mkdir:*)]
 ---
 
 You are generating a self-contained, interactive HTML pitch deck for Clear's e-Invoicing partnerships. The deck is a 6-tab single-page app: The Opportunity, Seller Journey, Buyer Experience, What Users See, Your Returns, and Security @ Scale.
