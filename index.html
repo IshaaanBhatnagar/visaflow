@@ -566,7 +566,7 @@
             <button onclick="closePayfacDiagram()" class="text-gray-400 hover:text-gray-600 p-1 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
           </div>
           <div class="payfac-subflow my-4">
-            <div class="payfac-subnode"><h5>mTLS Handshake</h5><p>Mutual TLS authentication. PCI DSS compliant channel.</p></div>
+            <div class="payfac-subnode"><h5>TLS Handshake</h5><p>Encrypted API authentication. Secure channel established.</p></div>
             <div class="payfac-arrow">&rarr;</div>
             <div class="payfac-subnode"><h5>API Request</h5><p>POST /payment-links<br/>{ amount, currency: AED, merchantId, invoiceRef }</p></div>
             <div class="payfac-arrow">&rarr;</div>
@@ -578,7 +578,7 @@
           </div>
           <div class="bg-gray-50 rounded-lg p-3 mt-3">
             <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Error Handling &amp; SLA</p>
-            <p class="text-xs text-gray-600">Retry with exponential backoff. Fallback to cached link if available. 99.9% uptime SLA. All calls over mTLS with PCI DSS Level 1 compliance.</p>
+            <p class="text-xs text-gray-600">Retry with exponential backoff. Fallback to cached link if available. 99.9% uptime SLA. All calls over encrypted TLS channel.</p>
           </div>
           <button onclick="showStandardDetail()" class="text-xs text-primary font-semibold mt-3 hover:underline">&larr; Back to node detail</button>
         </div>
@@ -633,11 +633,11 @@
           <table class="dashboard-table">
             <thead><tr><th>Invoice #</th><th>Seller</th><th>Buyer</th><th>Amount (AED)</th><th>Link Status</th><th>Financing</th><th>Date Sent</th></tr></thead>
             <tbody>
-              <tr><td class="font-medium">INV-2026-0847</td><td>Acme Trading LLC</td><td>Gulf Enterprises</td><td class="font-medium">52,500</td><td><span class="status-pill status-paid">Paid</span></td><td class="text-gray-400 text-xs">--</td><td>15 Mar 2026</td></tr>
-              <tr><td class="font-medium">INV-2026-0848</td><td>Acme Trading LLC</td><td>Desert Logistics</td><td class="font-medium">18,750</td><td><span class="status-pill status-clicked">Clicked</span></td><td><span class="status-pill status-available">Eligible</span></td><td>15 Mar 2026</td></tr>
-              <tr><td class="font-medium">INV-2026-0851</td><td>Nova Tech FZE</td><td>Pearl Trading Co.</td><td class="font-medium">125,000</td><td><span class="status-pill status-sent">Sent</span></td><td><span class="status-pill status-pending">Requested</span></td><td>14 Mar 2026</td></tr>
-              <tr><td class="font-medium">INV-2026-0839</td><td>Crescent Services</td><td>Oasis Group</td><td class="font-medium">8,400</td><td><span class="status-pill status-paid">Paid</span></td><td><span class="status-pill status-paid">Financed</span></td><td>13 Mar 2026</td></tr>
-              <tr><td class="font-medium">INV-2026-0822</td><td>Falcon Consulting</td><td>Marina Holdings</td><td class="font-medium">67,200</td><td><span class="status-pill status-expired">Expired</span></td><td><span class="status-pill status-expired">Denied</span></td><td>10 Mar 2026</td></tr>
+              <tr><td class="font-medium">INV-2027-0847</td><td>Acme Trading LLC</td><td>Gulf Enterprises</td><td class="font-medium">52,500</td><td><span class="status-pill status-paid">Paid</span></td><td class="text-gray-400 text-xs">--</td><td>15 Mar 2027</td></tr>
+              <tr><td class="font-medium">INV-2027-0848</td><td>Acme Trading LLC</td><td>Desert Logistics</td><td class="font-medium">18,750</td><td><span class="status-pill status-clicked">Clicked</span></td><td><span class="status-pill status-available">Eligible</span></td><td>15 Mar 2027</td></tr>
+              <tr><td class="font-medium">INV-2027-0851</td><td>Nova Tech FZE</td><td>Pearl Trading Co.</td><td class="font-medium">125,000</td><td><span class="status-pill status-sent">Sent</span></td><td><span class="status-pill status-pending">Requested</span></td><td>14 Mar 2027</td></tr>
+              <tr><td class="font-medium">INV-2027-0839</td><td>Crescent Services</td><td>Oasis Group</td><td class="font-medium">8,400</td><td><span class="status-pill status-paid">Paid</span></td><td><span class="status-pill status-paid">Financed</span></td><td>13 Mar 2027</td></tr>
+              <tr><td class="font-medium">INV-2027-0822</td><td>Falcon Consulting</td><td>Marina Holdings</td><td class="font-medium">67,200</td><td><span class="status-pill status-expired">Expired</span></td><td><span class="status-pill status-expired">Denied</span></td><td>10 Mar 2027</td></tr>
             </tbody>
           </table>
         </div>
@@ -808,7 +808,7 @@
       <div class="invoice-mockup mb-12">
         <div class="flex justify-between items-start mb-6">
           <div><div class="w-10 h-10 bg-gray-200 rounded flex items-center justify-center mb-2"><span class="text-gray-500 text-xs font-bold">LOGO</span></div><p class="text-xs text-gray-400">Acme Trading LLC</p></div>
-          <div class="text-right"><h2 class="font-heading font-bold text-2xl text-gray-900">INVOICE</h2><p class="text-xs text-gray-500 mt-1">INV-2026-0847</p><p class="text-xs text-gray-500">Date: 15 Mar 2026</p></div>
+          <div class="text-right"><h2 class="font-heading font-bold text-2xl text-gray-900">INVOICE</h2><p class="text-xs text-gray-500 mt-1">INV-2027-0847</p><p class="text-xs text-gray-500">Date: 15 Mar 2027</p></div>
         </div>
         <div class="grid grid-cols-2 gap-4 mb-6 text-xs text-gray-600">
           <div><p class="font-semibold text-gray-800 mb-1">From:</p><p>Acme Trading LLC<br/>Dubai Silicon Oasis, Dubai<br/>TRN: 100234567800003</p></div>
@@ -845,7 +845,7 @@
       <div class="flex gap-6 overflow-x-auto pb-4" style="-webkit-overflow-scrolling: touch;">
         <div class="phone-mockup"><div class="phone-notch"></div><div class="phone-body">
           <div class="flex items-center gap-2 mb-4"><div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center"><svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg></div><p class="text-xs font-semibold text-gray-800">New Invoice</p></div>
-          <div class="bg-gray-50 rounded-lg p-3 mb-3"><p class="text-xs font-semibold text-gray-800">Invoice from Acme Corp</p><p class="font-heading font-bold text-lg text-gray-900 mt-1">AED 52,500.00</p><p class="text-[10px] text-gray-500 mt-1">INV-2026-0847 &middot; Due: 14 Apr 2026</p></div>
+          <div class="bg-gray-50 rounded-lg p-3 mb-3"><p class="text-xs font-semibold text-gray-800">Invoice from Acme Corp</p><p class="font-heading font-bold text-lg text-gray-900 mt-1">AED 52,500.00</p><p class="text-[10px] text-gray-500 mt-1">INV-2027-0847 &middot; Due: 14 Apr 2027</p></div>
           <button class="w-full bg-primary text-white text-xs font-semibold py-2.5 rounded-lg">View &amp; Pay</button>
           <p class="text-center text-[10px] text-gray-400 mt-6 font-heading font-semibold">1 / 4 -- Invoice Received</p>
         </div></div>
@@ -863,7 +863,7 @@
           <div class="bg-gray-50 rounded-lg p-3 mb-3"><p class="text-[10px] text-gray-500 mb-1">Amount</p><p class="font-heading font-bold text-lg text-gray-900">AED 52,500.00</p><p class="text-[10px] text-gray-500 mt-1">To: Acme Trading LLC</p></div>
           <div class="space-y-2 mb-3">
             <div class="bg-white border border-gray-200 rounded-lg p-2.5"><p class="text-[10px] text-gray-500 mb-0.5">Card</p><p class="text-xs text-gray-800 font-medium">**** **** **** 4242</p></div>
-            <div class="bg-white border border-gray-200 rounded-lg p-2.5"><p class="text-[10px] text-gray-500 mb-0.5">Invoice Ref</p><p class="text-xs text-gray-800 font-medium">INV-2026-0847</p></div>
+            <div class="bg-white border border-gray-200 rounded-lg p-2.5"><p class="text-[10px] text-gray-500 mb-0.5">Invoice Ref</p><p class="text-xs text-gray-800 font-medium">INV-2027-0847</p></div>
           </div>
           <div class="flex items-center gap-1.5 mb-3"><svg class="w-3.5 h-3.5 text-positive" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><p class="text-[10px] text-positive font-semibold">3D Secure Verified</p></div>
           <button class="w-full bg-visa text-white text-xs font-bold py-2.5 rounded-lg">Pay Now</button>
@@ -874,7 +874,7 @@
           <p class="font-heading font-bold text-positive text-sm mb-1">Payment Confirmed</p>
           <p class="font-heading font-bold text-xl text-gray-900 mb-4">AED 52,500.00</p>
           <div class="bg-gray-50 rounded-lg p-3 text-left space-y-2 text-xs">
-            <div class="flex justify-between"><span class="text-gray-500">Invoice</span><span class="text-gray-800 font-medium">INV-2026-0847</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">Invoice</span><span class="text-gray-800 font-medium">INV-2027-0847</span></div>
             <div class="flex justify-between"><span class="text-gray-500">Status</span><span class="text-positive font-semibold">Reconciled</span></div>
             <div class="flex justify-between"><span class="text-gray-500">Seller notified</span><span class="text-gray-800 font-medium">15 Mar, 10:42 AM</span></div>
             <div class="flex justify-between"><span class="text-gray-500">Via</span><span class="text-visa font-semibold">Visa Rails</span></div>
